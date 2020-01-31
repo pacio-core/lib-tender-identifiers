@@ -575,7 +575,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
-"axlsign@https://github.com/wavesplatform/curve25519-js.git":
+"axlsign@https://github.com/wavesplatform/curve25519-js.git#cae68782564b83ffa1c7c757e40a3944cb140290":
   version "1.0.0"
   resolved "https://github.com/wavesplatform/curve25519-js.git#cae68782564b83ffa1c7c757e40a3944cb140290"
 
