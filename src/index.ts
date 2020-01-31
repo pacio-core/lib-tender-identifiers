@@ -32,15 +32,10 @@ export function verify(pubKey: PubKey, msg: Msg, sig: Sig): Boolean {
   return axlsign.verify(pubKey, msg, sig);
 }
 
-// export function sum(a: number, b: number) {
-//   return a + b;
-// }
+//
 
+//////////////////////
 // HELPERS
-
-// function u8a2str(buf: ArrayBuffer) {
-//   return String.fromCharCode.apply(null, new Uint8Array(buf).);
-// }
 
 interface U8a<L extends number> extends Uint8Array {
   length: L;
