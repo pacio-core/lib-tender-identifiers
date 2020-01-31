@@ -1,7 +1,5 @@
 import axlsign from "axlsign";
 
-// export { sign, verify, generateKeyPair } from "axlsign";
-
 export type Bytes = Uint8Array;
 export type Msg = Uint8Array;
 export type PubKey = Uint8Array;
