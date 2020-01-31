@@ -47,8 +47,16 @@ interface U8a<L extends number> extends Uint8Array {
 }
 
 export function str2u8a32(str: string): Uint8Array {
-  //   var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
   var buf = new ArrayBuffer(32);
+  var bufView = new Uint8Array(buf);
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return bufView;
+}
+export function str2u8a(str: string): Uint8Array {
+  //   var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+  var buf = new ArrayBuffer(str.length);
   var bufView = new Uint8Array(buf);
   for (var i = 0, strLen = str.length; i < strLen; i++) {
     bufView[i] = str.charCodeAt(i);
