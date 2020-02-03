@@ -4,28 +4,10 @@ import {
   generateKeyPair,
   verify,
   str2u8a32,
-  str2u8a
+  u8a2str,
+  str2u8a,
+  KeyPair
 } from "./index";
-
-describe("str2u8a32", () => {
-  it("string to Uint8Array", () => {
-    let inputStr = "correct horse battery staple";
-    let u8a: Uint8Array = str2u8a32(inputStr);
-
-    expect(u8a.length).toBe(32);
-    expect(u8a.slice(0, 5)).toEqual(Uint8Array.from([99, 111, 114, 114, 101]));
-  });
-});
-describe("str2u8a", () => {
-  it("string to Uint8Array", () => {
-    let inputStr =
-      "very message, many loooooooooooooooooooooooooooooooooong, so more than 32 bytes, wow";
-    let u8a: Uint8Array = str2u8a(inputStr);
-
-    expect(u8a.length).toEqual(inputStr.length);
-    expect(u8a.slice(0, 5)).toEqual(Uint8Array.from([118, 101, 114, 121, 32]));
-  });
-});
 
 describe("generateKeyPair", () => {
   it("generates a valid keyPair", () => {
@@ -77,7 +59,23 @@ describe("signMessage and verify", () => {
   });
 });
 
-///
+describe("serialize, deserialize KeyPair", () => {
+  it("serializes then deserializes a KeyPair", () => {
+    let keyPair = newKeyPair();
+    let ser = keyPair.ser();
+
+    expect(ser.length).toBe(64);
+
+    let deser = KeyPair.fromString(ser);
+
+    expect(deser.private.length).toBe(32);
+    expect(deser.public.length).toBe(32);
+    expect(deser.private).toEqual(keyPair.private);
+    expect(deser.public).toEqual(keyPair.public);
+  });
+});
+
+////////////////////////
 // HELPERS
 
 function newKeyPair() {
@@ -86,19 +84,27 @@ function newKeyPair() {
   return generateKeyPair(seedU8a);
 }
 
-// function bytesToSring(bytes: Uint8Array) {
-//   var chars = [];
-//   for (var i = 0, n = bytes.length; i < n; ) {
-//     chars.push(((bytes[i++] & 0xff) << 8) | (bytes[i++] & 0xff));
-//   }
-//   return String.fromCharCode.apply(null, chars);
-// }
+describe("str2u8a", () => {
+  it("string to Uint8Array and back", () => {
+    let inputStr =
+      "very message, many loooooooooooooooooooooooooooooooooong, so more than 32 bytes, wow";
+    let u8a: Uint8Array = str2u8a(inputStr);
 
-// function stringToBytes(str: string) {
-//   var bytes = [];
-//   for (var i = 0, n = str.length; i < n; i++) {
-//     var char = str.charCodeAt(i);
-//     bytes.push(char >>> 8, char & 0xff);
-//   }
-//   return bytes;
-// }
+    expect(u8a.length).toEqual(inputStr.length);
+    expect(u8a.slice(0, 5)).toEqual(Uint8Array.from([118, 101, 114, 121, 32]));
+
+    let outStr = u8a2str(u8a);
+
+    expect(outStr.length).toEqual(inputStr.length);
+    expect(outStr).toEqual(inputStr);
+  });
+});
+describe("str2u8a32", () => {
+  it("string to Uint8Array", () => {
+    let inputStr = "correct horse battery staple";
+    let u8a: Uint8Array = str2u8a32(inputStr);
+
+    expect(u8a.length).toBe(32);
+    expect(u8a.slice(0, 5)).toEqual(Uint8Array.from([99, 111, 114, 114, 101]));
+  });
+});
