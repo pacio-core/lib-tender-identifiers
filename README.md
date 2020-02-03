@@ -7,8 +7,8 @@ Curve25519 signatures library in Typescript
 
 ### API
 
-* generateKeyPair(seed) -> keyPair
-* sign(privateKey, message, [random]) -> signature
+* generateKeyPair(seed) -> KeyPair
+* sign(privateKey, message, [random]) -> Signature
 * verify(publicKey, message, signature) -> true | false
 * serializeKeyPair(keyPair) -> String
-* deserializeKeyPair(String) -> keyPair
+* deserializeKeyPair(String) -> KeyPair
