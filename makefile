@@ -1,3 +1,3 @@
 test:
-	cargo test
-	yarn test
+	cargo test -- --nocapture
+	# yarn test
