@@ -1,7 +1,7 @@
 {
   "name": "pledges-sig-lib",
   "version": "0.1.0",
-  "description": "ed25519 dpki and signature library in javascript",
+  "description": "ed25519 dpki and signature library in typescript",
   "main": "index.js",
   "author": "Nicolas Marshall",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "files": [
-    "src"
+    "typescript"
   ],
   "dependencies": {
     "axlsign": "https://github.com/wavesplatform/curve25519-js.git#cae68782564b83ffa1c7c757e40a3944cb140290"
