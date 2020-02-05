@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "axlsign": "https://github.com/wavesplatform/curve25519-js.git#cae68782564b83ffa1c7c757e40a3944cb140290",
-    "bip39-ts": "https://github.com/lsdjs/bip39.git#dd7f895fe91b4c77a8bc96208adf06b81c15c7bd"
+    "bip39-ts": "=1.0.6"
   },
   "devDependencies": {
     "@types/jest": "^25.1.1",

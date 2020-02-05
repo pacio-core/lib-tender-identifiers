@@ -6,8 +6,10 @@ import {
   str2u8a32,
   u8a2str,
   str2u8a,
-  KeyPair
+  KeyPair,
+  newMnemonic
 } from "./index";
+import { validateMnemonic } from "bip39-ts";
 
 describe("generateKeyPair", () => {
   it("generates a valid keyPair", () => {
@@ -72,6 +74,13 @@ describe("serialize, deserialize KeyPair", () => {
     expect(deser.public.length).toBe(32);
     expect(deser.private).toEqual(keyPair.private);
     expect(deser.public).toEqual(keyPair.public);
+  });
+});
+
+describe("newMnemonic", () => {
+  it("generates a valid new mnemonic", () => {
+    let mnem = newMnemonic();
+    expect(validateMnemonic(mnem)).toBe(true);
   });
 });
 
