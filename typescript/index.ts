@@ -1,4 +1,5 @@
 import axlsign from "axlsign";
+import { getMnemonic, toSeed, validateMnemonic } from "bip39-ts";
 
 export type Bytes = Uint8Array;
 export type Msg = Uint8Array;
@@ -45,6 +46,13 @@ export function signMessage(prvKey: PrivKey, msg: Msg, rnd?: Bytes): SignedMsg {
 
 export function verify(pubKey: PubKey, msg: Msg, sig: Sig): Boolean {
   return axlsign.verify(pubKey, msg, sig);
+}
+
+export function newMnemonic() {
+  const mnemonic: string = getMnemonic();
+  console.log(validateMnemonic(mnemonic) === true);
+  const seed: Buffer = toSeed(mnemonic);
+  // const seedHex: string = toSeedHex(mnemonic);
 }
 
 //
