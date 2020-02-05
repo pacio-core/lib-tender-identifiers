@@ -68,9 +68,10 @@ export function u8a2str(u8a: Uint8Array): string {
   return String.fromCharCode.apply(null, Array.from(u8a));
 }
 export function str2u8a(str: string): Uint8Array {
-  const buf = new ArrayBuffer(str.length);
+  let strLen = str.length;
+  const buf = new ArrayBuffer(strLen);
   const bufView = new Uint8Array(buf);
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < strLen; i++) {
     bufView[i] = str.charCodeAt(i);
   }
   return bufView;
