@@ -19,7 +19,8 @@ mod tests {
             .as_bytes()
             .try_into()
             .expect("slice with incorrect length");
-        let rng: StdRng = SeedableRng::from_seed(seed_str);
+        dbg!(seed_str);
+        let rng: StdRng = StdRng::from_seed(seed_str);
         // let mut rng = StdRng::from_seed(SeedableRng::seed_from_u64(&mut 1))
         rng
     }

@@ -7,7 +7,8 @@ import {
   u8a2str,
   str2u8a,
   KeyPair,
-  newMnemonic
+  newMnemonic,
+  toSeed
 } from "./index";
 import { validateMnemonic } from "bip39-ts";
 
@@ -81,6 +82,15 @@ describe("newMnemonic", () => {
   it("generates a valid new mnemonic", () => {
     let mnem = newMnemonic();
     expect(validateMnemonic(mnem)).toBe(true);
+  });
+});
+
+describe("toSeed", () => {
+  it("transforms a string to the right seed", () => {
+    let inputStr = "correct horse battery staple pad";
+    let seed = toSeed(inputStr);
+    console.log({ seed });
+    expect(seed).toEqual(seed);
   });
 });
 
