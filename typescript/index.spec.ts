@@ -89,7 +89,7 @@ describe("toSeed", () => {
   it("transforms a string to the right seed", () => {
     let inputStr = "correct horse battery staple pad";
     let seed = toSeed(inputStr);
-    console.log({ seed });
+    // console.log({ seed });
     expect(seed).toEqual(seed);
   });
 });

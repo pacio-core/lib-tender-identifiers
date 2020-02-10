@@ -398,6 +398,11 @@
     jest-diff "^25.1.0"
     pretty-format "^25.1.0"
 
+"@types/node@^13.7.0":
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.7.0.tgz#b417deda18cf8400f278733499ad5547ed1abec4"
+  integrity sha512-GnZbirvmqZUzMgkFn70c74OQpTTUcCzlhQliTzYjQMqg+hVKcDnxdL19Ne3UdYzdMA/+W3eb646FWn/ZaT1NfQ==
+
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
@@ -500,6 +505,11 @@ anymatch@^3.0.3:
   dependencies:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
+
+argon2-browser@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/argon2-browser/-/argon2-browser-1.12.0.tgz#06bb981973825d3fbc86d06429327756ad884139"
+  integrity sha512-qdEW311acXGGLTjslqO5f7cKG3foP6QUkeuav9au00aRY/B5AvNrqAVlL47a2MUdr6i7dx8Xp+5OreRGoXvCgQ==
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -1010,6 +1020,11 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+ed25519-sigs@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ed25519-sigs/-/ed25519-sigs-0.1.0.tgz#538eab9a5232d62c575756cbfc8f57fb9f2ff8b5"
+  integrity sha512-ZAE2jJVpciey+ZliSUNxn5kSW+6/zL6EWHUZu8kT1aALSHssL0Mszn9745OadfwWlK1saFZuMQYHKR0HLHAfCg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2036,6 +2051,11 @@ jest@^25.1.0:
     "@jest/core" "^25.1.0"
     import-local "^3.0.2"
     jest-cli "^25.1.0"
+
+js-chacha20@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/js-chacha20/-/js-chacha20-1.1.0.tgz#6a92b5393ca65d99eb877204c374cf5ab9c44a21"
+  integrity sha1-apK1OTymXZnrh3IEw3TPWrnESiE=
 
 js-tokens@^4.0.0:
   version "4.0.0"
