@@ -1,19 +1,36 @@
 #![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
+use wasm_bindgen::prelude::*;
+//
 use crypto::ed25519;
+use js_sys::Uint8Array;
 
-#[no_mangle]
-pub extern "C" fn add(x: u32, y: u32) -> u32 {
-    x + y
+// #[wasm_bindgen]
+// pub extern "C" fn ab(seed: &[u8]) -> Uint8Array {
+//     let array: Array = seed.into_iter().map(|x| JsValue::from(*x as u8)).collect();
+//     let u8a = Uint8Array::new(&array);
+//     u8a
+// }
+
+//
+
+#[wasm_bindgen]
+pub extern "C" fn gen_pubKey(seed: &[u8]) -> Uint8Array {
+    let (_, pubKey) = ed25519::keypair(&seed);
+    unsafe { Uint8Array::view(&pubKey) }
+}
+#[wasm_bindgen]
+pub extern "C" fn gen_privKey(seed: &[u8]) -> Uint8Array {
+    let (privKey, _) = ed25519::keypair(&seed);
+    unsafe { Uint8Array::view(&privKey) }
 }
 
-#[no_mangle]
-pub extern "C" fn keypair(seed: &[u8]) -> ([u8; 64], [u8; 32]) {
-    ed25519::keypair(seed)
-}
+//
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    // use super::*;
+    use crypto::ed25519;
     // use ed25519_dalek::{
     //     Keypair, PublicKey, Signature, KEYPAIR_LENGTH, PUBLIC_KEY_LENGTH, SECRET_KEY_LENGTH,
     // };
@@ -22,6 +39,15 @@ mod tests {
     // use rand_chacha::ChaCha20Rng;
     // use rand_core::RngCore;
     // use std::convert::TryInto;
+
+    #[test]
+    fn test_gen_keypair() {
+        let seed = [0u8, 0, 1, 1, 2, 2];
+        // let pubKey = gen_keypair(&seed);
+        let (privKey, pubKey) = ed25519::keypair(&seed);
+        // let pub64 = base64::encode(&pubKey);
+        dbg!(pubKey);
+    }
 
     // fn seed_rng() -> ChaCha20Rng {
     //     // let seed: &[u8] = &[1, 2, 3, 4,5,6,7,8,9,10];
