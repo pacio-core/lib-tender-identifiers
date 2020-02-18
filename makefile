@@ -8,7 +8,6 @@ build-w:
 	wasm-pack build rust --target no-modules --out-dir ../.cache/ed25519-sigs/dist/no-modules/
 	wasm-pack build rust --target browser --out-dir ../.cache/ed25519-sigs/dist/browser/
 	wasm-pack build rust --target nodejs --out-dir ../.cache/ed25519-sigs/dist/node/
-w.test:
-	cd rust && wasm-pack test --chrome
-ts.test:
+	sh copy.sh
+w.test: build-w
 	npx jest typescript/deps.spec.ts
