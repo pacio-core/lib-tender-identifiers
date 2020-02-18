@@ -10,20 +10,17 @@
     "test": "jest"
   },
   "files": [
-    "typescript"
+    "typescript/src"
   ],
   "dependencies": {
-    "@types/node": "^13.7.0",
-    "argon2-browser": "^1.12.0",
-    "axlsign": "https://github.com/wavesplatform/curve25519-js.git#cae68782564b83ffa1c7c757e40a3944cb140290",
-    "bip39-ts": "=1.0.6",
-    "ed25519-sigs": "^0.1.0",
-    "js-chacha20": "^1.1.0"
+    "@types/node": "^13.7.1",
+    "bip39-ts": "^1.0.6",
+    "ed25519-sigs": "https://github.com/edwards-sigsorhands/ed25519-sigs"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.1",
+    "@types/jest": "^25.1.2",
     "jest": "^25.1.0",
-    "ts-jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   },
   "jest": {
@@ -35,6 +32,9 @@
       "js",
       "wasm"
     ],
-    "testRegex": "^.+\\.spec\\.ts$"
+    "testRegex": "^.+\\.spec\\.ts$",
+    "testPathIgnorePatterns": [
+      ".old"
+    ]
   }
 }
