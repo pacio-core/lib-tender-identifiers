@@ -4,6 +4,7 @@
 use bip39::{Language, Mnemonic as Bip39Mnemo, MnemonicType, Seed};
 use blake2::{Blake2b, Digest};
 use crypto::ed25519;
+use js_sys::Uint8Array;
 
 mod ts_fns;
 
@@ -68,6 +69,15 @@ mod tests {
         let kp = KeyPair::from_phrase(&phrase);
         // let pub64 = base64::encode(&pubKey);
         dbg!(kp.pubKey.as_ref());
+    }
+
+    #[test]
+    fn test_gen_keypair() {
+        let seed = [0u8, 0, 1, 1, 2, 2];
+        // let pubKey = gen_keypair(&seed);
+        let (privKey, pubKey) = ed25519::keypair(&seed);
+        // let pub64 = base64::encode(&pubKey);
+        dbg!(pubKey);
     }
 
     // fn seed_rng() -> ChaCha20Rng {
