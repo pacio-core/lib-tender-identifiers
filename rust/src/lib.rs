@@ -1,52 +1,73 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
-use wasm_bindgen::prelude::*;
 //
+use bip39::{Language, Mnemonic as Bip39Mnemo, MnemonicType, Seed};
+use blake2::{Blake2b, Digest};
 use crypto::ed25519;
-use js_sys::Uint8Array;
 
-// #[wasm_bindgen]
-// pub extern "C" fn ab(seed: &[u8]) -> Uint8Array {
-//     let array: Array = seed.into_iter().map(|x| JsValue::from(*x as u8)).collect();
-//     let u8a = Uint8Array::new(&array);
-//     u8a
-// }
+mod ts_fns;
 
-//
-
-#[wasm_bindgen]
-pub extern "C" fn gen_pubKey(seed: &[u8]) -> Uint8Array {
-    let (_, pubKey) = ed25519::keypair(&seed);
-    unsafe { Uint8Array::view(&pubKey) }
+pub struct KeyPair {
+    pub privKey: [u8; 64],
+    pub pubKey: [u8; 32],
 }
-#[wasm_bindgen]
-pub extern "C" fn gen_privKey(seed: &[u8]) -> Uint8Array {
-    let (privKey, _) = ed25519::keypair(&seed);
-    unsafe { Uint8Array::view(&privKey) }
+impl KeyPair {
+    pub fn from_phrase(phrase: &str) -> Self {
+        // let mnemo = Bip39Mnemo::from_phrase(mnemoPhrase, Language::English).unwrap();
+        // let seed = Seed::new(&mnemo, "");
+        let seed = Blake2b::digest(phrase.as_bytes());
+        dbg!(seed);
+        let (privKey, pubKey) = ed25519::keypair(&seed);
+        KeyPair { privKey, pubKey }
+    }
+
+    pub fn sign(message: &[u8], privKey: &[u8]) -> [u8; 64] {
+        ed25519::signature(message, privKey)
+    }
+    pub fn verify(message: &[u8], pubKey: &[u8], signature: &[u8]) -> bool {
+        ed25519::verify(message, pubKey, signature)
+    }
+}
+
+pub fn verify(message: &[u8], pubKey: &[u8], signature: &[u8]) -> bool {
+    ed25519::verify(message, pubKey, signature)
+}
+
+pub struct SeedPhrase(String);
+impl SeedPhrase {
+    // pub fn from_str(s: &str) -> Self {
+    //     return Self(s.to_owned());
+    // }
+    pub fn new_random() -> Self {
+        let mnemonic = Bip39Mnemo::new(MnemonicType::Words12, Language::English);
+        Self(mnemonic.phrase().to_owned())
+    }
+    pub fn to_string(&self) -> String {
+        self.0.to_owned()
+    }
+    // pub fn into_seed(&self) -> [u8; 64] {
+    //     let seed: &[u8] = &Blake2b::digest(&self.0.as_bytes());
+    //     let seed2: &[u8; 64] = seed.slice();
+    // }
 }
 
 //
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
-    use crypto::ed25519;
-    // use ed25519_dalek::{
-    //     Keypair, PublicKey, Signature, KEYPAIR_LENGTH, PUBLIC_KEY_LENGTH, SECRET_KEY_LENGTH,
-    // };
-    // use rand::rngs::StdRng;
-    // use rand::SeedableRng;
-    // use rand_chacha::ChaCha20Rng;
-    // use rand_core::RngCore;
-    // use std::convert::TryInto;
+    use super::KeyPair;
 
     #[test]
     fn test_gen_keypair() {
-        let seed = [0u8, 0, 1, 1, 2, 2];
+        let phrase = String::from(
+            "famous concert update chimney vicious repeat camp awful equal cash leisure stable",
+        );
+        // let seed = [0u8, 0, 1, 1, 2, 2];
         // let pubKey = gen_keypair(&seed);
-        let (privKey, pubKey) = ed25519::keypair(&seed);
+        // let (privKey, pubKey) = ed25519::keypair(&seed);
+        let kp = KeyPair::from_phrase(&phrase);
         // let pub64 = base64::encode(&pubKey);
-        dbg!(pubKey);
+        dbg!(kp.pubKey.as_ref());
     }
 
     // fn seed_rng() -> ChaCha20Rng {
@@ -130,8 +151,6 @@ mod tests {
 
     //////////////////
     // HELPERS
-
-    type bErr = Box<dyn std::error::Error>;
 
     // fn new_keypair() -> Keypair {
     //     // let data = vec![1, 2, 3, 4, 5, 6, 7, 8];
