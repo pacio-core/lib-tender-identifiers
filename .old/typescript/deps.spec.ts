@@ -1,45 +1,51 @@
-import JSChaCha20 from "js-chacha20";
 import { str2u8a, str2u8a32 } from ".";
-import { scryptSync, ScryptOptions } from "crypto";
-// import { add } from "./sig_lib_rs/sig_lib_rs_bg";
-import { add } from "ed25519-sigs";
 
-export const scrypt = (password: Buffer, salt: Buffer) => {
-  const scryptOptions: ScryptOptions = { N: 16384, r: 8, p: 1 };
-  return scryptSync(password, salt, 64, scryptOptions);
-};
+// export const scrypt = (password: Buffer, salt: Buffer) => {
+//   const scryptOptions: ScryptOptions = { N: 16384, r: 8, p: 1 };
+//   return scryptSync(password, salt, 64, scryptOptions);
+// };
 
-export const toUtf8 = (data: string): Buffer => {
-  const nor: string = data.normalize("NFKD");
-  return Buffer.from(nor, "utf8");
-};
+// export const toUtf8 = (data: string): Buffer => {
+//   const nor: string = data.normalize("NFKD");
+//   return Buffer.from(nor, "utf8");
+// };
 
-describe("add", () => {
-  it("add", () => {
-    let res = add(2, 1);
-    console.log({ res });
+describe("gen_keypair", () => {
+  it("gen_keypair", () => {
+    let seed = new Uint8Array([0, 0, 1, 1, 2, 2]);
+    let pubKey: Uint8Array = gen_pubKey(seed);
+    let privKey: Uint8Array = gen_privKey(seed);
+    console.log({ privKey, pubKey });
   });
 });
 
-describe("scryptSync", () => {
-  it("scryptSync", () => {
-    const mnemo = "correct horse battery staple";
-    const mu8 = toUtf8(mnemo);
-    // // prettier-ignore
-    // const pass = new Uint8Array([
-    //     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
-    //     0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13,
-    //     0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
-    //     0x1e, 0x1f
-    // ]);
-    const salt = new Uint8Array([0x00]);
-    const derived = scrypt(mu8, Buffer.from(salt));
+// let [privKey, pubKey]: [Uint8Array, Uint8Array] = gen_keypair(seed);
+// let privKey: Uint8Array = new Uint8Array(
+//   memory.buffer,
+//   kp.privKey.offset(),
+//   kp.privKey.size()
+// );
+// let { privKey: Uint8Array, pubKey: Uint8Array } = out_pubKey;
 
-    console.log({ derived });
+// describe("scryptSync", () => {
+//   it("scryptSync", () => {
+//     const mnemo = "correct horse battery staple";
+//     const mu8 = toUtf8(mnemo);
+//     // // prettier-ignore
+//     // const pass = new Uint8Array([
+//     //     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
+//     //     0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13,
+//     //     0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d,
+//     //     0x1e, 0x1f
+//     // ]);
+//     const salt = new Uint8Array([0x00]);
+//     const derived = scrypt(mu8, Buffer.from(salt));
 
-    expect(derived.length).toBe(64);
-  });
-});
+//     console.log({ derived });
+
+//     expect(derived.length).toBe(64);
+//   });
+// });
 // describe("encrypt / decrypt with JSChaCha20", () => {
 //   it("should encrypt and decrypt with JSChaCha20", () => {
 //     const inputStr = "correct horse battery staple pad";

@@ -1,6 +1,6 @@
-import axlsign from "axlsign";
-import { getMnemonic, validateMnemonic } from "bip39-ts";
-export { toSeed } from "bip39-ts";
+// import axlsign from "axlsign";
+// import { getMnemonic, validateMnemonic } from "bip39-ts";
+// export { toSeed } from "bip39-ts";
 
 export type Bytes = Uint8Array;
 export type Msg = Uint8Array;
@@ -30,31 +30,31 @@ export class KeyPair {
   }
 }
 
-export function generateKeyPair(seed: Seed): KeyPair {
-  let pair = axlsign.generateKeyPair(seed);
-  return new KeyPair(pair.private, pair.public);
-}
+// export function generateKeyPair(seed: Seed): KeyPair {
+//   let pair = axlsign.generateKeyPair(seed);
+//   return new KeyPair(pair.private, pair.public);
+// }
 
-// returns the signature only
-export function sign(prvKey: PrivKey, msg: Msg, rnd?: Bytes): Sig {
-  return axlsign.sign(prvKey, msg, rnd);
-}
+// // returns the signature only
+// export function sign(prvKey: PrivKey, msg: Msg, rnd?: Bytes): Sig {
+//   return axlsign.sign(prvKey, msg, rnd);
+// }
 
-// returns the signature concatenated with the message
-export function signMessage(prvKey: PrivKey, msg: Msg, rnd?: Bytes): SignedMsg {
-  return axlsign.signMessage(prvKey, msg, rnd);
-}
+// // returns the signature concatenated with the message
+// export function signMessage(prvKey: PrivKey, msg: Msg, rnd?: Bytes): SignedMsg {
+//   return axlsign.signMessage(prvKey, msg, rnd);
+// }
 
-export function verify(pubKey: PubKey, msg: Msg, sig: Sig): Boolean {
-  return axlsign.verify(pubKey, msg, sig);
-}
+// export function verify(pubKey: PubKey, msg: Msg, sig: Sig): Boolean {
+//   return axlsign.verify(pubKey, msg, sig);
+// }
 
-export function newMnemonic() {
-  const mnemonic: string = getMnemonic();
-  // const seed = toSeed(mnemonic);
-  // const seedHex: string = toSeedHex(mnemonic);
-  return mnemonic;
-}
+// export function newMnemonic() {
+//   const mnemonic: string = getMnemonic();
+//   // const seed = toSeed(mnemonic);
+//   // const seedHex: string = toSeedHex(mnemonic);
+//   return mnemonic;
+// }
 
 //
 
