@@ -17,7 +17,6 @@ impl KeyPair {
         // let mnemo = Bip39Mnemo::from_phrase(mnemoPhrase, Language::English).unwrap();
         // let seed = Seed::new(&mnemo, "");
         let seed = Blake2b::digest(phrase.as_bytes());
-        dbg!(seed);
         let (privKey, pubKey) = ed25519::keypair(&seed);
         KeyPair { privKey, pubKey }
     }
@@ -63,55 +62,27 @@ mod tests {
         let phrase = String::from(
             "famous concert update chimney vicious repeat camp awful equal cash leisure stable",
         );
-        // let seed = [0u8, 0, 1, 1, 2, 2];
-        // let pubKey = gen_keypair(&seed);
-        // let (privKey, pubKey) = ed25519::keypair(&seed);
         let kp = KeyPair::from_phrase(&phrase);
-        // let pub64 = base64::encode(&pubKey);
-        dbg!(kp.pubKey.as_ref());
+        // let pub64 = base64::encode(&kp.pubKey);
+        assert_eq!(
+            kp.pubKey,
+            [
+                77u8, 255, 1, 87, 32, 102, 70, 203, 73, 206, 134, 120, 196, 243, 98, 188, 113, 87,
+                70, 251, 0, 89, 80, 68, 155, 200, 146, 57, 221, 152, 21, 113
+            ]
+        );
+        for (k, byte) in [
+            136u8, 43, 140, 164, 87, 8, 104, 39, 242, 182, 44, 253, 236, 253, 115, 28, 152, 43, 56,
+            73, 78, 26, 8, 248, 146, 1, 64, 92, 38, 169, 53, 217, 77, 255, 1, 87, 32, 102, 70, 203,
+            73, 206, 134, 120, 196, 243, 98, 188, 113, 87, 70, 251, 0, 89, 80, 68, 155, 200, 146,
+            57, 221, 152, 21, 113,
+        ]
+        .iter()
+        .enumerate()
+        {
+            assert_eq!(*byte, kp.privKey[k])
+        }
     }
-
-    #[test]
-    fn test_gen_keypair() {
-        let seed = [0u8, 0, 1, 1, 2, 2];
-        // let pubKey = gen_keypair(&seed);
-        let (privKey, pubKey) = ed25519::keypair(&seed);
-        // let pub64 = base64::encode(&pubKey);
-        dbg!(pubKey);
-    }
-
-    // fn seed_rng() -> ChaCha20Rng {
-    //     // let seed: &[u8] = &[1, 2, 3, 4,5,6,7,8,9,10];
-    //     let seed_str: [u8; 32] = "correct horse battery staple pad"
-    //         .as_bytes()
-    //         .try_into()
-    //         .expect("slice with incorrect length");
-    //     let rng = ChaCha20Rng::from_seed(seed_str);
-    //     // let rng = Rng(ChaCha::new(&seed, &[0u8; 8]));
-    //     // let mut rng = StdRng::from_seed(SeedableRng::seed_from_u64(&mut 1))
-    //     rng
-    // }
-
-    // #[test]
-    // fn fill_bytes_seedrng() {
-    //     let mut rng = seed_rng();
-    //     let mut res = [0u8; 32];
-    //     rng.fill_bytes(&mut res);
-
-    //     // dbg!(res);
-    // }
-
-    // #[test]
-    // fn scrypt_js() {
-    //     let default_scrypt_params = crypto::scrypt::ScryptParams::new(14, 8, 1);
-    //     let mut out = [0u8; 32];
-    //     let pass = "correct horse battery staple".as_bytes();
-    //     let salt = [0u8; 1];
-
-    //     crypto::scrypt::scrypt(pass, &salt, &default_scrypt_params, &mut out);
-
-    //     dbg!(out);
-    // }
 
     // #[test]
     // fn signs_and_verifies() {

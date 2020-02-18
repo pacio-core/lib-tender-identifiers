@@ -14,5 +14,4 @@ base64 = "=0.11.0"
 js-sys = "=0.3.35"
 bip39 = "0.6.0-beta.1"
 console_error_panic_hook = "0.1.6"
-# rust-blake2 = {git = "https://github.com/ebfe/rust-blake2", rev="24bce9b"}
 blake2 = "0.8"
