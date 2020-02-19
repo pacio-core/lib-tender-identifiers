@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 //
-use super::{KeyPair, PublicKey, SeedPhrase, Signature};
+use crate::{KeyPair, PublicKey, SeedPhrase, Signature};
 use js_sys::Uint8Array;
 
 // #[wasm_bindgen]
