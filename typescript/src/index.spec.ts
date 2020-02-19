@@ -20,20 +20,42 @@ describe("gen_keypair", () => {
       73, 49, 171, 46, 173, 51, 219, 117, 97, 85, 196, 48, 227, 42, 201, 0, 38, 245, 250,
       186, 82, 194, 87, 85, 208, 148, 180, 231, 240, 204, 242, 90
     ]))
+    // prettier-ignore
+    expect(kp.to_bytes()).toEqual(new Uint8Array([
+      136,  43, 140, 164,  87,   8, 104,  39, 242, 182, 44,
+      253, 236, 253, 115,  28, 152,  43,  56,  73,  78, 26,
+        8, 248, 146,   1,  64,  92,  38, 169,  53, 217, 73,
+       49, 171,  46, 173,  51, 219, 117,  97,  85, 196, 48,
+      227,  42, 201,   0,  38, 245, 250, 186,  82, 194, 87,
+       85, 208, 148, 180, 231, 240, 204, 242,  90
+    ]));
   });
 });
 
-// describe("sign and verify", () => {
-//   it("signs and verifies", () => {
-//     let phrase =
-//       "famous concert update chimney vicious repeat camp awful equal cash leisure stable";
-//     let kp = KeyPair.from_phrase(phrase);
-//     let message: Uint8Array = utils.toUtf8("a short msg");
+describe("sign and verify", () => {
+  it("signs and verifies", () => {
+    let phrase =
+      "famous concert update chimney vicious repeat camp awful equal cash leisure stable";
+    let kp = KeyPair.from_phrase(phrase);
+    let message: Uint8Array = utils.toUtf8("a short msg");
 
-//     let sig = kp.sign(message);
-//     expect(sig.length).toBe(64);
+    let sig = kp.sign(message);
+    expect(sig.length).toBe(64);
 
-//     let isValid = kp.verify(message, sig);
-//     expect(isValid).toBe(true);
-//   });
-// });
+    let isValid = kp.verify(message, sig);
+    expect(isValid).toBe(true);
+  });
+});
+describe("ser and deser", () => {
+  it("ser and deser", () => {
+    let phrase =
+      "famous concert update chimney vicious repeat camp awful equal cash leisure stable";
+    let kp = KeyPair.from_phrase(phrase);
+
+    let ser = kp.to_bytes();
+    expect(ser.length).toBe(64);
+
+    let deser = KeyPair.from_bytes(ser);
+    expect(deser).toEqual(kp);
+  });
+});

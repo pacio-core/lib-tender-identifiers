@@ -38,9 +38,16 @@ export class KeyPair {
   sign(message: Uint8Array): Uint8Array {
     return utils.copyUint8Array(sign(message, this.bytes));
   }
-
+  // if valid signature, returns true
   verify(message: Uint8Array, signature: Uint8Array): boolean {
     return lib25519verify(message, this.pubKey(), signature);
+  }
+
+  to_bytes(): Uint8Array {
+    return this.bytes;
+  }
+  static from_bytes(bytes: Uint8Array): KeyPair {
+    return new KeyPair(bytes);
   }
 }
 
