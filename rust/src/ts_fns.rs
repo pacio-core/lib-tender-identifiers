@@ -1,9 +1,5 @@
 use wasm_bindgen::prelude::*;
 //
-// use bip39::{Language, Mnemonic, MnemonicType, Seed};
-// use blake2::{Blake2b, Digest};
-
-// use crypto::ed25519;
 use super::{KeyPair, PublicKey, SeedPhrase, Signature};
 use js_sys::Uint8Array;
 
@@ -37,12 +33,6 @@ pub extern "C" fn verify(message: &[u8], pubKey_bytes: &[u8], sig_bytes: &[u8]) 
     pubKey.verify(&message, &sig).is_ok()
 }
 
-// #[wasm_bindgen]
-// pub extern "C" fn new_mnemophrase() -> String {
-//     console_error_panic_hook::set_once();
-//     let mnemonic = Mnemonic::new(MnemonicType::Words12, Language::English);
-//     mnemonic.phrase().to_owned()
-// }
 #[wasm_bindgen]
 pub extern "C" fn seed_from_phrase(phrase: String) -> Uint8Array {
     console_error_panic_hook::set_once();
