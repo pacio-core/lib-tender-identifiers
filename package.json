@@ -2,15 +2,17 @@
   "name": "pledges-sig-lib",
   "version": "0.1.0",
   "description": "ed25519 dpki and signature library in typescript",
-  "main": "index.js",
   "author": "Nicolas Marshall",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
+  "main": "typescript/dist/index.js",
+  "types":"typescript/src/index.ts",
   "files": [
-    "typescript/src"
+    "typescript/src",
+    "typescript/dist"
   ],
   "dependencies": {
     "@types/node": "^13.7.1",
