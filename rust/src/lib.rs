@@ -44,15 +44,6 @@ impl KeyPair {
         assert_eq!(bytes.len(), 64);
         Self(ed::Keypair::from_bytes(bytes).unwrap())
     }
-    // pub fn ser(&self) -> String {
-    //     let kp_bytes = self.0.to_bytes();
-    //     base64::encode(&kp_bytes)
-    // }
-    // pub fn from_ser(ser: &str) -> Self {
-    //     let deser = base64::decode(&ser).unwrap();
-    //     let kp = ed::Keypair::from_bytes(&deser).unwrap();
-    //     Self(kp)
-    // }
 }
 
 pub struct SeedPhrase(String);
@@ -68,11 +59,7 @@ impl SeedPhrase {
         self.0.to_owned()
     }
     pub fn into_seed(&self) -> [u8; 32] {
-        // let mnemonic = Mnemonic::from_phrase(&self.0, Language::English).unwrap();
-        // let seed = Seed::new(&mnemonic, "78s9fhjsuiofhjdskh");
-        // let seed = Blake2b::digest(self.0.as_bytes());
         let mut arr: [u8; 32] = Default::default();
-        // arr.copy_from_slice(&seed.as_bytes()[..32]);
         arr.copy_from_slice(&Blake2b::digest(self.0.as_bytes())[..32]);
         arr
     }
