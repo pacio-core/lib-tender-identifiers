@@ -108,9 +108,21 @@ mod tests {
     fn test_signs_and_verifies() {
         let kp = utils::new_keypair();
 
-        let msg: &[u8] = b"This is a test of the tsunami alert system.";
+        let msg: &[u8] = b"A short msg";
         let sig_bytes = kp.sign(msg);
         assert!(kp.verify(msg, &sig_bytes));
+
+        for (k, byte) in [
+            146, 245, 180, 26, 7, 213, 47, 135, 129, 130, 210, 72, 55, 84, 111, 162, 191, 204, 89,
+            164, 62, 160, 4, 208, 106, 157, 198, 129, 217, 23, 73, 206, 178, 105, 25, 40, 235, 18,
+            18, 49, 13, 69, 11, 163, 148, 250, 102, 70, 81, 58, 88, 101, 29, 132, 64, 206, 0, 234,
+            249, 102, 106, 153, 46, 0,
+        ]
+        .iter()
+        .enumerate()
+        {
+            assert_eq!(*byte, sig_bytes[k])
+        }
 
         let pubKey = kp.0.public;
         let sig = Signature::from_bytes(&sig_bytes).unwrap();

@@ -1,4 +1,4 @@
-import { KeyPair, SeedPhrase, utils, verify } from ".";
+import { KeyPair, SeedPhrase, utils } from ".";
 import { validateMnemonic } from "bip39-ts";
 
 describe("gen_phrase", () => {
@@ -37,10 +37,18 @@ describe("sign and verify", () => {
     let phrase =
       "famous concert update chimney vicious repeat camp awful equal cash leisure stable";
     let kp = KeyPair.from_phrase(phrase);
-    let message: Uint8Array = utils.toUtf8("a short msg");
+    let message: Uint8Array = utils.toUtf8("A short msg");
 
     let sig = kp.sign(message);
     expect(sig.length).toBe(64);
+
+    // prettier-ignore
+    expect(sig).toEqual(new Uint8Array([
+      146, 245, 180, 26, 7, 213, 47, 135, 129, 130, 210, 72, 55, 84, 111, 162, 191, 204, 89,
+      164, 62, 160, 4, 208, 106, 157, 198, 129, 217, 23, 73, 206, 178, 105, 25, 40, 235, 18,
+      18, 49, 13, 69, 11, 163, 148, 250, 102, 70, 81, 58, 88, 101, 29, 132, 64, 206, 0, 234,
+      249, 102, 106, 153, 46, 0,
+    ]));
 
     let isValid = kp.verify(message, sig);
     expect(isValid).toBe(true);
