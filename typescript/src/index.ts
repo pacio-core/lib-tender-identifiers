@@ -1,37 +1,46 @@
 import {
-  sign as lib25519sign,
   verify as lib25519verify,
+  sign,
   seed_from_phrase,
-  gen_privKey,
-  gen_pubKey
+  gen_keypair,
+  pubKey_from_pair_bytes
 } from "ed25519-sigs";
 import { getMnemonic } from "bip39-ts";
 
-export { gen_privKey, gen_pubKey, seed_from_phrase } from "ed25519-sigs";
+export { seed_from_phrase } from "ed25519-sigs";
 
 export class KeyPair {
-  privKey: Uint8Array;
-  pubKey: Uint8Array;
-  constructor(privKey: Uint8Array, pubKey: Uint8Array) {
-    this.privKey = privKey;
-    this.pubKey = pubKey;
+  bytes: Uint8Array;
+  // privKey: Uint8Array;
+  // pubKey: Uint8Array;
+  // constructor(privKey: Uint8Array, pubKey: Uint8Array) {
+  //   this.privKey = privKey;
+  //   this.pubKey = pubKey;
+  // }
+  constructor(bytes: Uint8Array) {
+    this.bytes = bytes;
   }
 
   static from_phrase(phrase: string): KeyPair {
-    let seed1 = utils.copyUint8Array(seed_from_phrase(phrase));
-    let seed2 = utils.copyUint8Array(seed_from_phrase(phrase));
-    let privKey = utils.copyUint8Array(gen_privKey(seed1));
-    let pubKey = utils.copyUint8Array(gen_pubKey(seed2));
-    return new KeyPair(privKey, pubKey);
+    // let seed1 = utils.copyUint8Array(seed_from_phrase(phrase));
+    // let seed2 = utils.copyUint8Array(seed_from_phrase(phrase));
+    // let privKey = utils.copyUint8Array(gen_privKey(seed1));
+    // let pubKey = utils.copyUint8Array(gen_pubKey(seed2));
+    let kp_bytes: Uint8Array = utils.copyUint8Array(gen_keypair(phrase));
+    return new KeyPair(kp_bytes);
+  }
+
+  pubKey(): Uint8Array {
+    return utils.copyUint8Array(pubKey_from_pair_bytes(this.bytes));
   }
 
   // sign returns the signature only
   sign(message: Uint8Array): Uint8Array {
-    return utils.copyUint8Array(lib25519sign(message, this.privKey));
+    return utils.copyUint8Array(sign(message, this.bytes));
   }
 
   verify(message: Uint8Array, signature: Uint8Array): boolean {
-    return lib25519verify(message, this.pubKey, signature);
+    return lib25519verify(message, this.pubKey(), signature);
   }
 }
 

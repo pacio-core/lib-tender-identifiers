@@ -1,6 +1,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
-use bip39::{Language, Mnemonic, MnemonicType, Seed};
+use bip39::{Language, Mnemonic, MnemonicType};
+use blake2::{Blake2b, Digest};
 use ed25519_dalek::{self as ed, SecretKey};
 
 mod ts_fns;
@@ -20,6 +21,10 @@ impl KeyPair {
 
         let kp = ed::Keypair::from_bytes(&pair).unwrap();
         Self(kp)
+    }
+
+    pub fn pubkey(&self) -> PublicKey {
+        self.0.public
     }
 
     pub fn sign(&self, message: &[u8]) -> [u8; 64] {
@@ -63,10 +68,12 @@ impl SeedPhrase {
         self.0.to_owned()
     }
     pub fn into_seed(&self) -> [u8; 32] {
-        let mnemonic = Mnemonic::from_phrase(&self.0, Language::English).unwrap();
-        let seed = Seed::new(&mnemonic, "78s9fhjsuiofhjdskh");
+        // let mnemonic = Mnemonic::from_phrase(&self.0, Language::English).unwrap();
+        // let seed = Seed::new(&mnemonic, "78s9fhjsuiofhjdskh");
+        // let seed = Blake2b::digest(self.0.as_bytes());
         let mut arr: [u8; 32] = Default::default();
-        arr.copy_from_slice(&seed.as_bytes()[..32]);
+        // arr.copy_from_slice(&seed.as_bytes()[..32]);
+        arr.copy_from_slice(&Blake2b::digest(self.0.as_bytes())[..32]);
         arr
     }
 }
@@ -85,13 +92,13 @@ mod tests {
         assert_eq!(
             kp.0.public.to_bytes(),
             [
-                29, 22, 183, 232, 153, 72, 107, 114, 216, 190, 123, 229, 127, 163, 85, 76, 167, 8,
-                198, 158, 3, 75, 35, 50, 163, 112, 4, 205, 106, 31, 109, 243
+                73, 49, 171, 46, 173, 51, 219, 117, 97, 85, 196, 48, 227, 42, 201, 0, 38, 245, 250,
+                186, 82, 194, 87, 85, 208, 148, 180, 231, 240, 204, 242, 90
             ]
         );
         for (k, byte) in [
-            25, 199, 110, 145, 17, 190, 23, 43, 7, 174, 207, 107, 157, 225, 128, 162, 6, 154, 186,
-            163, 144, 43, 14, 178, 29, 226, 67, 47, 227, 224, 232, 102,
+            136, 43, 140, 164, 87, 8, 104, 39, 242, 182, 44, 253, 236, 253, 115, 28, 152, 43, 56,
+            73, 78, 26, 8, 248, 146, 1, 64, 92, 38, 169, 53, 217,
         ]
         .iter()
         .enumerate()

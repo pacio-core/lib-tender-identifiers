@@ -15,8 +15,15 @@ use js_sys::Uint8Array;
 // }
 #[wasm_bindgen]
 pub extern "C" fn gen_keypair(phrase: &str) -> Uint8Array {
+    console_error_panic_hook::set_once();
+
     let kp = KeyPair::from_phrase(phrase);
     unsafe { Uint8Array::view(&kp.to_bytes()) }
+}
+#[wasm_bindgen]
+pub extern "C" fn pubKey_from_pair_bytes(pair_bytes: &[u8]) -> Uint8Array {
+    let kp = KeyPair::from_bytes(&pair_bytes);
+    unsafe { Uint8Array::view(&kp.pubkey().to_bytes()) }
 }
 #[wasm_bindgen]
 pub extern "C" fn sign(message: &[u8], keypair_bytes: &[u8]) -> Uint8Array {
@@ -38,6 +45,5 @@ pub extern "C" fn seed_from_phrase(phrase: String) -> Uint8Array {
     console_error_panic_hook::set_once();
 
     let seed = SeedPhrase::from_str(&phrase).into_seed();
-
     unsafe { Uint8Array::view(&seed) }
 }
