@@ -11,21 +11,11 @@ export { seed_from_phrase } from "ed25519-sigs";
 
 export class KeyPair {
   bytes: Uint8Array;
-  // privKey: Uint8Array;
-  // pubKey: Uint8Array;
-  // constructor(privKey: Uint8Array, pubKey: Uint8Array) {
-  //   this.privKey = privKey;
-  //   this.pubKey = pubKey;
-  // }
   constructor(bytes: Uint8Array) {
     this.bytes = bytes;
   }
 
   static from_phrase(phrase: string): KeyPair {
-    // let seed1 = utils.copyUint8Array(seed_from_phrase(phrase));
-    // let seed2 = utils.copyUint8Array(seed_from_phrase(phrase));
-    // let privKey = utils.copyUint8Array(gen_privKey(seed1));
-    // let pubKey = utils.copyUint8Array(gen_pubKey(seed2));
     let kp_bytes: Uint8Array = utils.copyUint8Array(gen_keypair(phrase));
     return new KeyPair(kp_bytes);
   }
