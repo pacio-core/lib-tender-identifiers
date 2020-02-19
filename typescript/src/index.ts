@@ -85,4 +85,25 @@ export class utils {
     dst.set(src);
     return dst;
   }
+
+  // u8a2str(u8a: Uint8Array): string {
+  //   return String.fromCharCode.apply(null, Array.from(u8a));
+  // }
+  // str2u8a(str: string): Uint8Array {
+  //   let strLen = str.length;
+  //   const buf = new ArrayBuffer(strLen);
+  //   const bufView = new Uint8Array(buf);
+  //   for (let i = 0; i < strLen; i++) {
+  //     bufView[i] = str.charCodeAt(i);
+  //   }
+  //   return bufView;
+  // }
+  // str2u8a32(str: string): Uint8Array {
+  //   var buf = new ArrayBuffer(32);
+  //   var bufView = new Uint8Array(buf);
+  //   for (var i = 0, strLen = str.length; i < strLen; i++) {
+  //     bufView[i] = str.charCodeAt(i);
+  //   }
+  //   return bufView;
+  // }
 }
