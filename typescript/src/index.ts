@@ -52,15 +52,15 @@ export function verify(
   return lib25519verify(message, pubKey, signature);
 }
 
-export class Mnemonic {
+export class SeedPhrase {
   phrase: string;
   constructor(phrase: string) {
     this.phrase = phrase;
   }
 
-  static new_random(): Mnemonic {
+  static new_random(): SeedPhrase {
     let phrase: string = getMnemonic();
-    return new Mnemonic(phrase);
+    return new SeedPhrase(phrase);
   }
 
   into_seed(): Uint8Array {
