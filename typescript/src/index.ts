@@ -1,13 +1,13 @@
 import {
-  verify as lib25519verify,
-  sign,
-  seed_from_phrase,
-  gen_keypair,
-  pubKey_from_pair_bytes
+  verification as lib25519verify,
+  signature as sign,
+  mnemonic_phrase_to_entropy as seed_from_phrase,
+  random_new_keypair as gen_keypair,
+  new_pubkey as pubKey_from_pair_bytes
 } from "ed25519-sigs";
 import { getMnemonic } from "bip39-ts";
 
-export { seed_from_phrase } from "ed25519-sigs";
+export { mnemonic_phrase_to_entropy as seed_from_phrase } from "ed25519-sigs";
 
 export class KeyPair {
   bytes: Uint8Array;

@@ -1013,7 +1013,7 @@ ecc-jsbn@~0.1.1:
 
 "ed25519-sigs@https://github.com/edwards-sigsorhands/ed25519-sigs":
   version "0.1.5"
-  resolved "https://github.com/edwards-sigsorhands/ed25519-sigs#149205b0061f4f16c0e5a328ad1d159ce3c24766"
+  resolved "https://github.com/edwards-sigsorhands/ed25519-sigs#bed814207d366f0a41ad09804e493aadade52b38"
   dependencies:
     "@types/node" "^13.7.1"
     bip39-ts "^1.0.6"
