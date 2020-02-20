@@ -1,6 +1,8 @@
-**/.cache
-**/.old
 **/target
 **/node_modules
+**/*.rs.bk
 
+**/.old
+**/.cache
+**/.config/
 copy.sh
