@@ -6,7 +6,7 @@ w.build:
 	sh copy.sh
 
 
-a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/jniLibs) $(eval libName=librustylib.so)
+a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/jniLibs) $(eval libName=libed25519xp.so)
 	cargo ndk --target aarch64-linux-android --android-platform ${min_ver} -- build --release
 	cargo ndk --target armv7-linux-androideabi --android-platform ${min_ver} -- build --release
 	cargo ndk --target i686-linux-android --android-platform ${min_ver} -- build --release
@@ -21,7 +21,7 @@ a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/
 
 # DEPS
 deps: install-rust
-	@rustc --version | grep -E 'nightly.*2019-10-28' $s || rustup override set nightly-2019-10-28
+	@rustc --version | grep -E 'nightly.*2019-12-14' $s || rustup override set nightly-2019-12-14
 	# @drill --version | grep 0.5.0 $s || cargo install drill --version 0.5.0
 	@cargo ndk --version | grep 0.4.1 $s || cargo install cargo-ndk --version 0.4.1
 	@rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android

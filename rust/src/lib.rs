@@ -4,8 +4,8 @@ use bip39::{Language, Mnemonic, MnemonicType};
 use blake2::{Blake2b, Digest};
 use ed25519_dalek::{self as ed, SecretKey};
 
-mod utils;
 pub use ed::{PublicKey, Signature};
+mod bindings;
 
 #[derive(Debug)]
 pub struct KeyPair(ed::Keypair);
