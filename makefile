@@ -1,8 +1,8 @@
 .DEFAULT_GOAL=a.build
-test:
+test: deps
 	cargo test -- --nocapture
 	yarn test
-w.build:
+w.build: deps
 	sh copy.sh
 
 
