@@ -1,50 +1,109 @@
 #![cfg(target_os = "android")]
 #![allow(non_snake_case)]
-use jni::objects::{JClass, JString};
-use jni::sys::jstring;
+use jni::objects::{JByteBuffer, JClass, JString};
+use jni::sys::{jbyteArray, jstring};
 use jni::JNIEnv;
-use std::ffi::CString;
 //
-use super::ios::hello;
+use crate::{KeyPair, PublicKey, SeedPhrase, Signature};
 
-// NOTE: RustKt references the name rusty.kt, which will be the kotlin file exposing the functions below.
+// NOTE: RustyKt references the name rusty.kt, which will be the kotlin file exposing the functions below.
 // Remember the JNI naming conventions.
 
-// first version doesn't use the iOS function
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_helloDirect(
+pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_keypair_from_phrase(
     env: JNIEnv,
     _: JClass,
-    input: JString,
-) -> jstring {
-    let input: String = env
+    input: JString, // phrase: String
+) -> jbyteArray {
+    let phrase: String = env
         .get_string(input)
-        .expect("Couldn't get Java string!")
+        .expect("Couldn't get Java string for arg 'phrase'!")
         .into();
-    let output = env
-        .new_string(format!("Hello from Rust: {}", input))
-        .expect("Couldn't create a Java string!");
+    let kp = KeyPair::from_phrase(&phrase);
+    let output = env.new_direct_byte_buffer(&mut kp.to_bytes()).unwrap();
     output.into_inner()
 }
 
-// // second version re-uses the iOS function (but it returns an unsafe which we'll have to free manually). Not good !
-// #[allow(clippy::similar_names)]
+#[no_mangle]
+pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_pubKey_from_pair_bytes(
+    env: JNIEnv,
+    _: JClass,
+    input: jbyteArray,
+) -> jbyteArray {
+    let pair_bytes_vec: Vec<u8> = env.convert_byte_array(input).unwrap();
+    let kp = KeyPair::from_bytes(&pair_bytes_vec.as_ref());
+    let mut pubKey_bytes = kp.pubkey().to_bytes();
+    let output = env.new_direct_byte_buffer(&mut pubKey_bytes).unwrap();
+    output.into_inner()
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_sign(
+    env: JNIEnv,
+    _: JClass,
+    input: (
+        jbyteArray, // message: &[u8]
+        jbyteArray, // keypair_bytes: &[u8]
+    ),
+) -> jbyteArray {
+    let message_bytes_vec: Vec<u8> = env.convert_byte_array(input.0).unwrap();
+    let keypair_bytes_vec: Vec<u8> = env.convert_byte_array(input.1).unwrap();
+    let kp = KeyPair::from_bytes(keypair_bytes_vec.as_ref());
+    let mut sig_bytes = kp.sign(&message_bytes_vec.as_ref());
+    let output = env.new_direct_byte_buffer(&mut sig_bytes).unwrap();
+    output.into_inner()
+    // unsafe { Uint8Array::view(&sig_bytes) }
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_verify(
+    env: JNIEnv,
+    _: JClass,
+    input: (
+        jbyteArray, // message: &[u8],
+        jbyteArray, // pubKey_bytes: &[u8],
+        jbyteArray, // sig_bytes: &[u8],
+    ),
+    message: &[u8],
+    pubKey_bytes: &[u8],
+    sig_bytes: &[u8],
+) -> bool {
+    let message_bytes_vec: Vec<u8> = env.convert_byte_array(input.0).unwrap();
+    let pubKey_bytes_vec: Vec<u8> = env.convert_byte_array(input.1).unwrap();
+    let sig_bytes_vec: Vec<u8> = env.convert_byte_array(input.2).unwrap();
+    let pubKey = PublicKey::from_bytes(pubKey_bytes_vec.as_ref()).unwrap();
+    let sig = Signature::from_bytes(&sig_bytes_vec.as_ref()).unwrap();
+    pubKey.verify(&message, &sig).is_ok()
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_seed_from_phrase(
+    env: JNIEnv,
+    _: JClass,
+    input: JString, // phrase: String
+) -> jbyteArray {
+    let phrase: String = env
+        .get_string(input)
+        .expect("Couldn't get Java string for arg 'phrase'!")
+        .into();
+    let mut seed = SeedPhrase::from_str(&phrase).into_seed();
+    let output = env.new_direct_byte_buffer(&mut seed).unwrap();
+    output.into_inner()
+    // unsafe { Uint8Array::view(&seed) }
+}
+
 // #[no_mangle]
 // pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_hello(
 //     env: JNIEnv,
 //     _: JClass,
-//     input: JString,
+//     input: JString, // name: String
 // ) -> jstring {
-//     let java_str = env.get_string(input).expect("Couldn't get Java string!");
-//     // we call our generic func for iOS
-//     let java_str_ptr = java_str.as_ptr();
-//     let result = unsafe { hello(java_str_ptr) };
-//     // freeing memory from CString in ios function
-//     // if we call hello_release we won't have access to the result
-//     let result_ptr = unsafe { CString::from_raw(result) };
-//     let result_str = result_ptr.to_str().unwrap();
+//     let input: String = env
+//         .get_string(input)
+//         .expect("Couldn't get Java string for arg 'name'!")
+//         .into();
 //     let output = env
-//         .new_string(result_str)
+//         .new_string(format!("Hello from Rust: {}", input))
 //         .expect("Couldn't create a Java string!");
 //     output.into_inner()
 // }
