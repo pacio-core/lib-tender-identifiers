@@ -1,11 +1,12 @@
-.DEFAULT_GOAL=a.build
+.DEFAULT_GOAL=ts.build
 test: deps
 	cargo test -- --nocapture
 	yarn test
 w.build: deps
 	sh copy.sh
 
-
+ts.build: deps
+	node node_modules/.bin/rollup -c
 a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/jniLibs) $(eval libName=libed25519xp.so)
 	cargo ndk --target aarch64-linux-android --android-platform ${min_ver} -- build --release
 	cargo ndk --target armv7-linux-androideabi --android-platform ${min_ver} -- build --release
@@ -26,6 +27,7 @@ deps: install-rust
 	@cargo ndk --version | grep 0.4.1 $s || cargo install cargo-ndk --version 0.4.1
 	@rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 	# rustup target add aarch64-apple-ios armv7-apple-ios armv7s-apple-ios x86_64-apple-ios i386
+	@npm --version $s && cat node_modules/.bin/tsc $s || npm install
 install-rust: 		# install manually: build-essential, pkg-config
 	@rustup --version $s || curl https://sh.rustup.rs -sSf | sh -s -- -y
 s = 2>&1 >/dev/null

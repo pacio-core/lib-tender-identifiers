@@ -8,22 +8,28 @@
     "build": "tsc",
     "test": "jest"
   },
-  "main": "typescript/dist/index.js",
-  "types":"typescript/src/index.ts",
+  "main": "typescript/dist/bundle.cjs.js",
+  "types": "typescript/src/index.ts",
   "files": [
     "typescript/src",
     "typescript/dist"
   ],
   "dependencies": {
-    "@types/node": "^13.7.1",
     "bip39-ts": "^1.0.6",
-    "ed25519-sigs": "https://github.com/edwards-sigsorhands/ed25519-sigs"
+    "ed25519-sigs": "^0.1.7"
   },
   "devDependencies": {
+    "@types/node": "^13.7.1",
     "@types/jest": "^25.1.2",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-multi-entry": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-wasm": "^3.0.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-typescript2": "^0.26.0"
   },
   "jest": {
     "transform": {
