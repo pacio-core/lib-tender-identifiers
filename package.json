@@ -8,11 +8,13 @@
     "build": "tsc",
     "test": "jest"
   },
-  "main": "typescript/dist/bundle.cjs.js",
+  "main": "typescript/dist/index.js",
   "types": "typescript/src/index.ts",
+  "browser": "typescript/dist/bundle.cjs.js",
   "files": [
     "typescript/src",
-    "typescript/dist"
+    "typescript/dist",
+    "package.json"
   ],
   "dependencies": {
     "bip39-ts": "^1.0.6",
