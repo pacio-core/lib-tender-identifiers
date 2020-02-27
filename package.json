@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "bip39-ts": "^1.0.6",
-    "ed25519-sigs": "^0.1.7"
+    "ed25519-sigs": "git+https://github.com/edwards-sigsorhands/ed25519-sigs.git"
   },
   "devDependencies": {
     "@types/node": "^13.7.1",
