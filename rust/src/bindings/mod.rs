@@ -1,6 +1,8 @@
 #[cfg(target_os = "android")]
 mod android;
 
-// we call the ios functions from the android ones
+#[cfg(target_os = "ios")]
 mod ios;
+
+#[cfg(target_arch = "wasm32")]
 mod ts_fns;
