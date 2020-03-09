@@ -1,9 +1,10 @@
-.DEFAULT_GOAL=ts.build
+.DEFAULT_GOAL=w.build
 test: deps
 	cargo test -- --nocapture
-	yarn test
+	node node_modules/.bin/jest
 w.build: deps
-	sh copy.sh
+	rm -rf ./.cache/ed25519xp/
+	wasm-pack build rust --out-dir ../.cache/ed25519xp/dist --out-name index
 
 ts.build: deps
 	node node_modules/.bin/rollup -c
