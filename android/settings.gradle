@@ -1,2 +1,0 @@
-include ':app', ':ed255192'
-rootProject.name='ed25519'
