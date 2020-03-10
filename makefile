@@ -1,4 +1,4 @@
-.DEFAULT_GOAL=w.build
+.DEFAULT_GOAL=a.build
 test: deps
 	cargo test -- --nocapture
 	node node_modules/.bin/jest
@@ -8,7 +8,7 @@ w.build: deps
 
 ts.build: deps
 	node node_modules/.bin/webpack
-a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/jniLibs) $(eval libName=libed25519xp.so)
+a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/ed25519lib/src/main/jniLibs) $(eval libName=libed25519xp.so)
 	cargo ndk --target aarch64-linux-android --android-platform ${min_ver} -- build --release
 	cargo ndk --target armv7-linux-androideabi --android-platform ${min_ver} -- build --release
 	cargo ndk --target i686-linux-android --android-platform ${min_ver} -- build --release
@@ -16,10 +16,10 @@ a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/rustylibrary/src/main/
 	#
 	rm -rf ${jniLibs} && mkdir -p ${jniLibs}/arm64-v8a ${jniLibs}/armeabi-v7a ${jniLibs}/x86 ${jniLibs}/x86_64
 	#
-	cp target/aarch64-linux-android/release/${libName} ${jniLibs}/arm64-v8a/${libName}
-	cp target/armv7-linux-androideabi/release/${libName} ${jniLibs}/armeabi-v7a/${libName}
-	cp target/i686-linux-android/release/${libName} ${jniLibs}/x86/${libName}
-	cp target/x86_64-linux-android/release/${libName} ${jniLibs}/x86_64/${libName}
+	@cp target/aarch64-linux-android/release/${libName} ${jniLibs}/arm64-v8a/${libName}
+	@cp target/armv7-linux-androideabi/release/${libName} ${jniLibs}/armeabi-v7a/${libName}
+	@cp target/i686-linux-android/release/${libName} ${jniLibs}/x86/${libName}
+	@cp target/x86_64-linux-android/release/${libName} ${jniLibs}/x86_64/${libName}
 
 # DEPS
 deps: install-rust
