@@ -20,16 +20,22 @@ a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/ed25519lib/src/main/jn
 	@cp target/armv7-linux-androideabi/release/${libName} ${jniLibs}/armeabi-v7a/${libName}
 	@cp target/i686-linux-android/release/${libName} ${jniLibs}/x86/${libName}
 	@cp target/x86_64-linux-android/release/${libName} ${jniLibs}/x86_64/${libName}
+	#
+	./android/gradlew build
+	rm -rf .gradle/
 
 # DEPS
-deps: install-rust
+deps: installs
 	@rustc --version | grep -E 'nightly.*2019-12-14' $s || rustup override set nightly-2019-12-14
 	@cargo ndk --version | grep 0.4.1 $s || cargo install cargo-ndk --version 0.4.1
+	@cargo-lipo --version $s || cargo install cargo-lipo
+	@cbindgen --version $s || cargo install cbindgen
 	-@rustup target add wasm32-unknown-unknown aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android aarch64-apple-ios armv7-apple-ios armv7s-apple-ios x86_64-apple-ios i386 $s
 	@test -d node_modules || npm install
-install-rust: 		# install manually: build-essential, pkg-config
+installs: 		# install manually: build-essential, pkg-config
 	@rustup --version $s || curl https://sh.rustup.rs -sSf | sh -s -- -y
-s = 2>&1 >/dev/null
+	@xcode-select --install $s || true
+s = &>/dev/null
 
 rm.cache:
 	rm -rf package-lock.json node_modules/ target/ rust/target/
