@@ -23,6 +23,10 @@ a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/ed25519lib/src/main/jn
 	#
 	./android/gradlew build
 	rm -rf .gradle/
+ios.build:
+	mkdir ios/include && cbindgen rust/src/lib.rs -l c > ios/include/rustylib.h
+	cargo lipo --release
+	mkdir -p ios/libs && cp target/universal/release/libed25519xp.a ios/libs
 
 # DEPS
 deps: installs

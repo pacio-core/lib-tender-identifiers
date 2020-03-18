@@ -13,6 +13,7 @@
 		8C51C75A241FA7C300800D21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C51C758241FA7C300800D21 /* Main.storyboard */; };
 		8C51C75C241FA7C500800D21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C51C75B241FA7C500800D21 /* Assets.xcassets */; };
 		8C51C75F241FA7C500800D21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C51C75D241FA7C500800D21 /* LaunchScreen.storyboard */; };
+		8C51C768241FEEEE00800D21 /* libed25519xp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C51C767241FEE7C00800D21 /* libed25519xp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		8C51C75B241FA7C500800D21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C51C75E241FA7C500800D21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C51C760241FA7C500800D21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C51C767241FEE7C00800D21 /* libed25519xp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libed25519xp.a; path = ../libs/libed25519xp.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C51C768241FEEEE00800D21 /* libed25519xp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 			children = (
 				8C51C751241FA7C300800D21 /* ed25-ios-app */,
 				8C51C750241FA7C300800D21 /* Products */,
+				8C51C766241FEE7C00800D21 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +69,14 @@
 				8C51C760241FA7C500800D21 /* Info.plist */,
 			);
 			path = "ed25-ios-app";
+			sourceTree = "<group>";
+		};
+		8C51C766241FEE7C00800D21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C51C767241FEE7C00800D21 /* libed25519xp.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,13 +297,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = ../include;
 				INFOPLIST_FILE = "ed25-ios-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = ../libs;
 				PRODUCT_BUNDLE_IDENTIFIER = "pacio.ed25-ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../include/rustylib.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -302,13 +317,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = ../include;
 				INFOPLIST_FILE = "ed25-ios-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = ../libs;
 				PRODUCT_BUNDLE_IDENTIFIER = "pacio.ed25-ios-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = ../include/rustylib.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
