@@ -16,9 +16,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showMessage(sender: UIButton) {
-        let alertController = UIAlertController(title: "Welcome to My First App", message: "Hello World", preferredStyle: UIAlertController.Style.alert)
+        let helloStr = getHelloStr()
+        let alertController = UIAlertController(title: "Welcome to My First App", message: helloStr, preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
+}
+
+func getHelloStr() -> String {
+    let result = hello("Rob")
+    let sr = String(cString: result!)
+    // IMPORTANT: once we get the result we have to release the pointer.
+    hello_release(UnsafeMutablePointer(mutating: result))
+    return sr
 }
 
