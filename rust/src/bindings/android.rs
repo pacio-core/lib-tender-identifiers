@@ -1,5 +1,5 @@
 #![cfg(target_os = "android")]
-#![allow(non_snake_case)]
+// #![allow(non_snake_case)]
 use jni::objects::{JByteBuffer, JClass, JString};
 use jni::sys::{jbyteArray, jstring};
 use jni::JNIEnv;
@@ -52,7 +52,6 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_sign(
     let mut sig_bytes = kp.sign(&message_bytes_vec.as_ref());
     let output = env.new_direct_byte_buffer(&mut sig_bytes).unwrap();
     output.into_inner()
-    // unsafe { Uint8Array::view(&sig_bytes) }
 }
 
 #[no_mangle]
@@ -89,7 +88,6 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_seed_from_phrase(
     let mut seed = SeedPhrase::from_str(&phrase).into_seed();
     let output = env.new_direct_byte_buffer(&mut seed).unwrap();
     output.into_inner()
-    // unsafe { Uint8Array::view(&seed) }
 }
 
 // #[no_mangle]
