@@ -2,7 +2,7 @@
 
 Curve25519 signatures library for Rust / Typescript / Android / iOS.
 
-## Prerequisites
+### Prerequisites
 
 - On mac/linux, make sure you have the packages `build-essentials`, `pkg-config` installed on your system (for Rust).
 - In order to build for iOS, you need a mac.
@@ -87,21 +87,21 @@ ed25519xp = { git="https://github.com/pacio-core/pledges-sig-lib" }
   </ul>
 </details>
 
-## Building from source
+### Building from source
 
-- for typescript, run
+#### for typescript, run
 
 ```shell
 make ts.build
 ```
 
-- for android, run
+#### for android, run
 
 ```shell
 make a.build
 ```
 
-- for ios, run
+#### for ios, run
 
 ```shell
 make ios.build
