@@ -13,11 +13,24 @@ Other dependencies will be installed automatically (when you run the makefile co
 
 ### Rust
 
-In your project's `Cargo.toml`, add the following line under `[dependencies]`:
+<details>
+  <summary>Installation</summary>
+  <p>
+  In your project's `Cargo.toml`, add the following line under `[dependencies]`:
 
 ```toml
 ed25519xp = { git="https://github.com/pacio-core/pledges-sig-lib" }
 ```
+
+  </p>
+</details>
+
+<details>
+  <summary>API</summary>
+  <p> 
+    See docs.rs
+  </p>
+</details>
 
 ### Typescript
 
