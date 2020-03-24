@@ -4,7 +4,20 @@ Curve25519 signatures library for Rust / Typescript / Android / iOS.
 
 ## Prerequisites
 
+- On mac/linux, make sure you have the packages `build-essentials`, `pkg-config` installed on your system (for Rust).
+- In order to build for iOS, you need a mac.
+
+Other dependencies will be installed automatically (when you run the makefile commands)
+
 ## Usage
+
+### Rust
+
+In your project's `Cargo.toml`, add the following line under `[dependencies]`:
+
+```toml
+ed25519xp = { git="https://github.com/pacio-core/pledges-sig-lib" }
+```
 
 ### Typescript
 
@@ -34,10 +47,11 @@ Curve25519 signatures library for Rust / Typescript / Android / iOS.
 <details>
   <summary>API</summary>
   <ul>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>pubKey_from_pair_bytes(keypair: RustByteSlice) -> RustByteSlice</li>
-    <li>sign(message: RustByteSlice, keypair: RustByteSlice) -> RustByteSlice</li>
-    <li>verify(message: RustByteSlice, pubKey: RustByteSlice, sig: RustByteSlice) -> bool</li>
+    <li>keypair_from_phrase(phrase_utf8: JString) -> (keyPair: JByteArray)</li>
+    <li>pubKey_from_pair_bytes(keypair: JByteArray) -> (pubKey: JByteArray)</li>
+    <li>sign(message: JByteArray, keypair: JByteArray) -> (signature: JByteArray)</li>
+    <li>verify(message: JByteArray, pubKey: JByteArray, sig: JByteArray) -> (isValid: boolean)</li>
+    <li>seed_from_phrase(phrase_utf8: JString) -> (seed_bytes: JByteArray)</li>
   </ul>
 </details>
 
@@ -66,10 +80,10 @@ Curve25519 signatures library for Rust / Typescript / Android / iOS.
 <details>
   <summary>API</summary>
   <ul>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>pubKey_from_pair_bytes(keypair: RustByteSlice) -> RustByteSlice</li>
-    <li>sign(message: RustByteSlice, keypair: RustByteSlice) -> RustByteSlice</li>
-    <li>verify(message: RustByteSlice, pubKey: RustByteSlice, sig: RustByteSlice) -> bool</li>
+    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> (keyPair: RustByteSlice)</li>
+    <li>pubKey_from_pair_bytes(keypair: RustByteSlice) -> (pubKey: RustByteSlice)</li>
+    <li>sign(message: RustByteSlice, keypair: RustByteSlice) -> (signature: RustByteSlice)</li>
+    <li>verify(message: RustByteSlice, pubKey: RustByteSlice, sig: RustByteSlice) -> (isValid: bool)</li>
   </ul>
 </details>
 
