@@ -33,13 +33,12 @@ Curve25519 signatures library for Rust / Typescript / Android / iOS.
 
 <details>
   <summary>API</summary>
-  <p>
+  <ul>
     <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-  </p>
+    <li>pubKey_from_pair_bytes(keypair: RustByteSlice) -> RustByteSlice</li>
+    <li>sign(message: RustByteSlice, keypair: RustByteSlice) -> RustByteSlice</li>
+    <li>verify(message: RustByteSlice, pubKey: RustByteSlice, sig: RustByteSlice) -> bool</li>
+  </ul>
 </details>
 
 ### iOS
@@ -68,10 +67,9 @@ Curve25519 signatures library for Rust / Typescript / Android / iOS.
   <summary>API</summary>
   <ul>
     <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
-    <li>keypair_from_phrase(phrase_utf8: RustByteSlice) -> RustByteSlice</li>
+    <li>pubKey_from_pair_bytes(keypair: RustByteSlice) -> RustByteSlice</li>
+    <li>sign(message: RustByteSlice, keypair: RustByteSlice) -> RustByteSlice</li>
+    <li>verify(message: RustByteSlice, pubKey: RustByteSlice, sig: RustByteSlice) -> bool</li>
   </ul>
 </details>
 
