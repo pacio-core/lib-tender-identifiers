@@ -25,53 +25,34 @@ class ViewController: UIViewController {
 
 ///////////////////
 
-// struct RustByteSlice {
-//     var bytes: UnsafePointer<UInt8>
-//     var len: Int
-
-//     func asUnsafeBufferPointer() -> UnsafeBufferPointer<UInt8> {
-//         return UnsafeBufferPointer(start: bytes, count: len)
-//     }
-//     func asString(encoding: String.Encoding = String.Encoding.utf8) -> String? {
-//         return String(bytes: asUnsafeBufferPointer(), encoding: encoding)
-//     }
-// }
-
-// func strPtrRet() {
-//     let rustString: RustByteSlice = get_string_from_rust()
-
-//     if let stringFromRust = rustString.asString() {
-//         print("got a string from Rust: (stringFromRust)")
-//     } else {
-//         print("Could not parse Rust string as UTF-8")
-//     }
-// }
-
 func strPtrRet() -> String? {
-    let rustString: RustByteSlice = get_string_from_rust()
-    let buffer = UnsafeBufferPointer(start: rustString.bytes, count: rustString.len)
-    let string = String(bytes: buffer, encoding: String.Encoding.utf8)
+    let keypair = kp()
+    print(keypair.start, keypair.len)
+//    let kp_data = Data(kp().asUnsafeBufferPointer())
+    print(kepa.asUnsafeBufferPointer().first!)
+//    let str = rustBytes.asHexStr()
 
-    if let stringFromRust = string {
-        print("got a string from Rust: (stringFromRust)")
-    } else {
-        print("Could not parse Rust string as UTF-8")
-    }
+//    if let stringFromRust = str {
+//        print("got a string from Rust")
+//        print(stringFromRust)
+//    } else {
+//        print("Could not parse Rust string as UTF-8")
+//    }
 
-    return string
+    return "Hello world"
 }
 
-
-
-//extension RustByteSlice {
-//    func asUnsafeBufferPointer() -> UnsafeBufferPointer<UInt8> {
-//        return UnsafeBufferPointer(start: bytes, count: len)
-//    }
-//
-//    func asString(encoding: String.Encoding = String.Encoding.utf8) -> String? {
-//        return String(bytes: asUnsafeBufferPointer(), encoding: encoding)
-//    }
-//}
+extension RustByteSlice {
+    func asUnsafeBufferPointer() -> UnsafeBufferPointer<UInt8> {
+        return UnsafeBufferPointer(start: start, count: len)
+    }
+    func asString(encoding: String.Encoding = String.Encoding.utf8) -> String? {
+        return String(bytes: asUnsafeBufferPointer(), encoding: encoding)
+    }
+    func asHexStr() -> String? {
+        Data(asUnsafeBufferPointer()).map{ String(format:"%02x", $0) }.joined()
+    }
+}
 
 //////////////////////////
 

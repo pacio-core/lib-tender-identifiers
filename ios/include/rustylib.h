@@ -4,14 +4,14 @@
 #include <stdlib.h>
 
 typedef struct {
-  const uint8_t *bytes;
+  const uint8_t *start;
   size_t len;
 } RustByteSlice;
 
-RustByteSlice get_string_from_rust(void);
+RustByteSlice keypair_from_phrase(RustByteSlice phrase_utf8);
 
-char *hello(const char *to);
+RustByteSlice pubKey_from_pair_bytes(RustByteSlice keypair);
 
-void hello_release(char *s);
+RustByteSlice sign(RustByteSlice message, RustByteSlice keypair);
 
-void utf8_bytes_to_rust(const uint8_t *bytes, size_t len);
+bool verify(RustByteSlice message, RustByteSlice pubKey, RustByteSlice sig);
