@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 ///////////////////
 
 func strPtrRet() -> String? {
-    let keypair = kp()
+    let keypair = keypair_from()
     print(keypair.start, keypair.len)
 //    let kp_data = Data(kp().asUnsafeBufferPointer())
     print(kepa.asUnsafeBufferPointer().first!)
@@ -57,20 +57,20 @@ extension RustByteSlice {
 //////////////////////////
 
 
-func getHelloStr() -> String {
-    let result = hello("Rob")
-    let sr = String(cString: result!)
-    // IMPORTANT: once we get the result we have to release the pointer.
-    hello_release(UnsafeMutablePointer(mutating: result))
-    return sr
-}
-
- func swiftStr() {
-     let myString = "Hello from Swift"
- //    let data: Data = myString.data(using: String.Encoding.utf8, allowLossyConversion: false)!
- //    utf8_bytes_to_rust(UnsafePointer<UInt8>(data.bytes), data.length)
-     utf8_bytes_to_rust(myString.toUnsafePointer(), myString.count) // is mystring.count correct ?
- }
+//func getHelloStr() -> String {
+//    let result = hello("Rob")
+//    let sr = String(cString: result!)
+//    // IMPORTANT: once we get the result we have to release the pointer.
+//    hello_release(UnsafeMutablePointer(mutating: result))
+//    return sr
+//}
+//
+// func swiftStr() {
+//     let myString = "Hello from Swift"
+// //    let data: Data = myString.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+// //    utf8_bytes_to_rust(UnsafePointer<UInt8>(data.bytes), data.length)
+//     utf8_bytes_to_rust(myString.toUnsafePointer(), myString.count) // is mystring.count correct ?
+// }
 
 extension String {
     func toUnsafePointer() -> UnsafePointer<UInt8>? {
