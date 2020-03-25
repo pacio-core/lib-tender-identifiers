@@ -1,4 +1,4 @@
-# pledges-sig-lib-ts
+# pledges-sig-lib
 
 Curve25519 signatures library for Rust / Typescript / Android / iOS.
 
