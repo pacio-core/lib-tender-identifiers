@@ -26,10 +26,11 @@ class ViewController: UIViewController {
 ///////////////////
 
 func strPtrRet() -> String? {
-    let keypair = keypair_from()
-    print(keypair.start, keypair.len)
+    let phrase_byteSlice = RustByteSlice.fromStr(str: "super strong passphrase from Swift") // this will have to be created with a bip39 mnemonic
+//    let data: Data = phrase.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+    let keypair_out = keypair_from_phrase(phrase_byteSlice)
+    
 //    let kp_data = Data(kp().asUnsafeBufferPointer())
-    print(kepa.asUnsafeBufferPointer().first!)
 //    let str = rustBytes.asHexStr()
 
 //    if let stringFromRust = str {
@@ -43,6 +44,10 @@ func strPtrRet() -> String? {
 }
 
 extension RustByteSlice {
+    static func fromStr(str: String) -> RustByteSlice {
+        return RustByteSlice(start: str.toUnsafePointer(), len: str.count)
+    }
+    
     func asUnsafeBufferPointer() -> UnsafeBufferPointer<UInt8> {
         return UnsafeBufferPointer(start: start, count: len)
     }
@@ -74,7 +79,7 @@ extension RustByteSlice {
 
 extension String {
     func toUnsafePointer() -> UnsafePointer<UInt8>? {
-        guard let data = self.data(using: .utf8) else {
+        guard let data = self.data(using: .utf8,allowLossyConversion: false) else {
             return nil
         }
 
