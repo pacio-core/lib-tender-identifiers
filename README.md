@@ -11,6 +11,26 @@ Other dependencies will be installed automatically (when you run the makefile co
 
 ## Usage
 
+When the user opens the app for the first time, your app:
+
+- generates a seed phrase, using a "bip39" library for your app's platform.
+  The user can then save in a safe place (e.g. password manager)
+- uses `keypair_from_phrase()` to generate a keypair from the seed phrase.
+  It then stores the keypair in a password/fingerprint-protected place.
+
+When the user likes something / makes a pledge on a web page, your app needs to append a signature to the pledge payload that is sent to smartlike. We use those fields to create the signature
+
+- sender
+- url
+- amount
+- timestamp
+
+We then:
+
+- stringify these fields to JSON
+- sign using `sign()` it gives us signature bytes
+- serialize those bytes to Hex for the server payload
+
 ### Rust
 
 <details>
