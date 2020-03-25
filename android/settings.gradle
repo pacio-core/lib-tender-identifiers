@@ -1,2 +1,0 @@
-include ':app', ':ed25519lib'
-rootProject.name='Ed25519 Android Project'
