@@ -19,10 +19,8 @@ Other dependencies will be installed automatically (when you run the makefile co
   In your project's `Cargo.toml`, add the following line under `[dependencies]`:
 
 ```toml
-ed25519xp = { git="https://github.com/pacio-core/pledges-sig-lib" }
+ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 ```
-
-(for now you must have)
 
   </p>
 </details>
