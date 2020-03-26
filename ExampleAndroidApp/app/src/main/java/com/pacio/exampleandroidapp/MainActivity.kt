@@ -5,10 +5,11 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-import com.pacio.ed25519lib.keypair_from_phrase
+import com.pacio.ed25519lib.keypairFromPhrase
 import com.pacio.ed25519lib.loadLibEd25519
 
 class MainActivity : AppCompatActivity() {
@@ -19,9 +20,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         loadLibEd25519()
-        findViewById(R.id.txt).let {
-            it?.text = keypair_from_phrase("Hello Luka")
-        }
+        var keypair =  keypairFromPhrase("Hello Luka") // copy bytes into memory
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

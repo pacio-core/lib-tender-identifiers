@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':ed25519lib'
 rootProject.name='ExampleAndroidApp'
