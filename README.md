@@ -77,7 +77,7 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 ### Android
 
 <details>
-  <summary>Installation method 1</summary>
+  <summary>Installation</summary>
   <div>In short: Create new library, then copy some files from this repo into it</div>
   <ol>
     <li>in android studio go to file>new>import module</li>
