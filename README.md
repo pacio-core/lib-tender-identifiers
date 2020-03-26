@@ -57,20 +57,14 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 <details>
   <summary>Installation</summary>
   <ol>
-    <li>Copy `android/ed25519lib/` just under the root of your android app project</li>
     <li>
-      Add this to your App's main build.gradle file:
-      <blockquote>
-      dependencies {
-          implementation project(':ed25519lib')
-      } 
-      </blockquote>
     </li>
   </ol>
 </details>
 
 <details>
   <summary>API</summary>
+  // TODO
   <ul> 
     <li>generateKeyPair(seed) -> KeyPair</li>
     <li>sign(privateKey, message, [random]) -> Signature</li>
@@ -83,7 +77,27 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 ### Android
 
 <details>
-  <summary>Installation</summary>
+  <summary>Installation method 1 (recommended)</summary>
+  <div>In short: Create new library, then copy some files from this repo into it</div>
+  <ol>
+    <li>in android studio go to file>new>import module</li>
+    <li>locate pledges>ExampleAndoridApp>ed25519lib</li>
+    <li>import it into project as a module</li>
+    <li>in build.gradle(ed25519) change minSdkVersion and targetSdk version to match your app versions</li>
+    <li>in build.gradle(app) add 
+      <pre><code>
+      dependencies {
+          implementation project(':ed25519lib')
+      } 
+      </code></pre>
+    </li>
+    <li>dependencies { implementation project(':ed25519lib') }</li>
+    <li>sync project </li>
+  </ol>
+</details>
+
+<details>
+  <summary>Installation method 2 (copy folder)</summary>
   <ol>
     <li>Copy `android/ed25519lib/` just under the root of your android app project</li>
     <li>
@@ -95,41 +109,42 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
       </code></pre>
     </li>
     <br/>
-    <details>
-      <summary>Example basic usage</summary>
-      In an Activity, import both the functions you need and loadLibEd25519(), and do:
-      <pre><code>
-        import com.pacio.ed25519lib.keypair_from_phrase
-        import com.pacio.ed25519lib.loadLibEd25519
-        class MainActivity : AppCompatActivity() {
-            override fun onCreate(savedInstanceState: Bundle?) {
-                super.onCreate(savedInstanceState)
-                setContentView(R.layout.activity_main)
-                setSupportActionBar(toolbar)
-                loadLibEd25519()
-                findViewById<TextView>(R.id.txt).let {
-                    it?.text = keypair_from_phrase("Hello Luka")
-                }
-            }
-            override fun onCreateOptionsMenu(menu: Menu): Boolean {
-                // Inflate the menu; this adds items to the action bar if it is present.
-                menuInflater.inflate(R.menu.menu_main, menu)
-                return true
-            }
-            override fun onOptionsItemSelected(item: MenuItem): Boolean {
-                // Handle action bar item clicks here. The action bar will
-                // automatically handle clicks on the Home/Up button, so long
-                // as you specify a parent activity in AndroidManifest.xml.
-                return when (item.itemId) {
-                    R.id.action_settings -> true
-                    else -> super.onOptionsItemSelected(item)
-                }
-            }
-        }
-      </code></pre>
-    </details>
 
   </ol>
+</details>
+
+<details>
+  <summary>Example basic usage</summary>
+  In an Activity, import both the functions you need and loadLibEd25519(), and do:
+  <pre><code>
+    import com.pacio.ed25519lib.keypair_from_phrase
+    import com.pacio.ed25519lib.loadLibEd25519
+    class MainActivity : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            setSupportActionBar(toolbar)
+            loadLibEd25519()
+            findViewById<TextView>(R.id.txt).let {
+                it?.text = keypair_from_phrase("Hello Luka")
+            }
+        }
+        override fun onCreateOptionsMenu(menu: Menu): Boolean {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            menuInflater.inflate(R.menu.menu_main, menu)
+            return true
+        }
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            return when (item.itemId) {
+                R.id.action_settings -> true
+                else -> super.onOptionsItemSelected(item)
+            }
+        }
+    }
+  </code></pre>
 </details>
 
 <details>
