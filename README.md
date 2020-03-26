@@ -79,8 +79,8 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 <details>
   <summary>Installation</summary>
   <ol>
-    <li>in android studio go to file>new>import module</li>
-    <li>locate pledges>ExampleAndoridApp>ed25519lib</li>
+    <li>in android studio go to file > new > import module</li>
+    <li>locate `pledges-sig-lib (this repo)` > ExampleAndroidApp > ed25519lib</li>
     <li>import it into project as a module</li>
     <li>in build.gradle(ed25519) change minSdkVersion and targetSdk version to match your app versions</li>
     <li>in build.gradle(app) add 
@@ -90,7 +90,6 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
       } 
       </code></pre>
     </li>
-    <li>dependencies { implementation project(':ed25519lib') }</li>
     <li>sync project </li>
   </ol>
 </details>
