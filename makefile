@@ -21,8 +21,9 @@ a.build: deps $(eval min_ver=28) $(eval jniLibs=./android/ed25519lib/src/main/jn
 	@cp target/i686-linux-android/release/${libName} ${jniLibs}/x86/${libName}
 	@cp target/x86_64-linux-android/release/${libName} ${jniLibs}/x86_64/${libName}
 	#
-	# ./android/gradlew build      # re-activate for an actual android app
-	# rm -rf .gradle/
+a.example.build:
+	./ExampleAndroidApp/gradlew build
+	rm -rf .gradle/
 ios.build:
 	mkdir -p ios/include && cbindgen rust/src/lib.rs -l c > ios/include/rustylib.h
 	cargo lipo --release
