@@ -10,7 +10,7 @@ use crate::{KeyPair, PublicKey, SeedPhrase, Signature};
 // Remember the JNI naming conventions.
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_keypair_from_phrase(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_keypair_from_phrase(
     env: JNIEnv,
     _: JClass,
     input: JString, // phrase: String
@@ -25,7 +25,7 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_keypair_from_phrase(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_pubKey_from_pair_bytes(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_pubKey_from_pair_bytes(
     env: JNIEnv,
     _: JClass,
     input: jbyteArray,
@@ -38,7 +38,7 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_pubKey_from_pair_byte
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_sign(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_sign(
     env: JNIEnv,
     _: JClass,
     input: (
@@ -55,7 +55,7 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_sign(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_verify(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_verify(
     env: JNIEnv,
     _: JClass,
     input: (
@@ -76,7 +76,7 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_verify(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_seed_from_phrase(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_seed_from_phrase(
     env: JNIEnv,
     _: JClass,
     input: JString, // phrase: String
@@ -91,7 +91,7 @@ pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_seed_from_phrase(
 }
 
 // #[no_mangle]
-// pub extern "system" fn Java_com_pacio_rustylibrary_RustyKt_hello(
+// pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_hello(
 //     env: JNIEnv,
 //     _: JClass,
 //     input: JString, // name: String
