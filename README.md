@@ -77,7 +77,7 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 ### Android
 
 <details>
-  <summary>Installation method 1 (recommended)</summary>
+  <summary>Installation method 1</summary>
   <div>In short: Create new library, then copy some files from this repo into it</div>
   <ol>
     <li>in android studio go to file>new>import module</li>
@@ -97,27 +97,10 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
 </details>
 
 <details>
-  <summary>Installation method 2 (copy folder)</summary>
-  <ol>
-    <li>Copy `android/ed25519lib/` just under the root of your android app project</li>
-    <li>
-      Add this to your App's main build.gradle file:
-      <pre><code>
-      dependencies {
-          implementation project(':ed25519lib')
-      } 
-      </code></pre>
-    </li>
-    <br/>
-
-  </ol>
-</details>
-
-<details>
   <summary>Example basic usage</summary>
   In an Activity, import both the functions you need and loadLibEd25519(), and do:
   <pre><code>
-    import com.pacio.ed25519lib.keypair_from_phrase
+    import com.pacio.ed25519lib.keypairFromPhrase
     import com.pacio.ed25519lib.loadLibEd25519
     class MainActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,7 +109,7 @@ ed25519xp = { git="ssh://git@github.com:pacio-core/pledges-sig-lib.git" }
             setSupportActionBar(toolbar)
             loadLibEd25519()
             findViewById<TextView>(R.id.txt).let {
-                it?.text = keypair_from_phrase("Hello Luka")
+                it?.text = keypairFromPhrase("Hello Josip !")
             }
         }
         override fun onCreateOptionsMenu(menu: Menu): Boolean {
