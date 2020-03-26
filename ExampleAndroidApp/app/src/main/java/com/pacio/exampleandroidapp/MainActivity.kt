@@ -8,6 +8,9 @@ import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
 
+import com.pacio.ed25519lib.keypair_from_phrase
+import com.pacio.ed25519lib.loadLibEd25519
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
