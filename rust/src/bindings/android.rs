@@ -1,6 +1,6 @@
 #![cfg(target_os = "android")]
 // #![allow(non_snake_case)]
-use jni::objects::{JByteBuffer, JClass, JString};
+use jni::objects::{JClass, JString};
 use jni::sys::{jbyteArray, jstring};
 use jni::JNIEnv;
 //
@@ -63,16 +63,13 @@ pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_verify(
         jbyteArray, // pubKey_bytes: &[u8],
         jbyteArray, // sig_bytes: &[u8],
     ),
-    message: &[u8],
-    pubKey_bytes: &[u8],
-    sig_bytes: &[u8],
 ) -> bool {
     let message_bytes_vec: Vec<u8> = env.convert_byte_array(input.0).unwrap();
     let pubKey_bytes_vec: Vec<u8> = env.convert_byte_array(input.1).unwrap();
     let sig_bytes_vec: Vec<u8> = env.convert_byte_array(input.2).unwrap();
     let pubKey = PublicKey::from_bytes(pubKey_bytes_vec.as_ref()).unwrap();
     let sig = Signature::from_bytes(&sig_bytes_vec.as_ref()).unwrap();
-    pubKey.verify(&message, &sig).is_ok()
+    pubKey.verify(&message_bytes_vec.as_ref(), &sig).is_ok()
 }
 
 #[no_mangle]
