@@ -10,7 +10,7 @@ use crate::{KeyPair, PublicKey, SeedPhrase, Signature};
 // Remember the JNI naming conventions.
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_keypair_from_phrase(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_keypairFromPhrase(
     env: JNIEnv,
     _: JClass,
     input: JString, // phrase: String
@@ -25,7 +25,7 @@ pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_keypair_from_phrase(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_pubKey_from_pair_bytes(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_pubKeyFromPairBytes(
     env: JNIEnv,
     _: JClass,
     input: jbyteArray,
@@ -76,7 +76,7 @@ pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_verify(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_seed_from_phrase(
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_seedFromPhrase(
     env: JNIEnv,
     _: JClass,
     input: JString, // phrase: String
@@ -90,18 +90,19 @@ pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_seed_from_phrase(
     output.into_inner()
 }
 
-// #[no_mangle]
-// pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_hello(
-//     env: JNIEnv,
-//     _: JClass,
-//     input: JString, // name: String
-// ) -> jstring {
-//     let input: String = env
-//         .get_string(input)
-//         .expect("Couldn't get Java string for arg 'name'!")
-//         .into();
-//     let output = env
-//         .new_string(format!("Hello from Rust: {}", input))
-//         .expect("Couldn't create a Java string!");
-//     output.into_inner()
-// }
+// TODO DELETE
+#[no_mangle]
+pub extern "system" fn Java_com_pacio_ed25519lib_LibKt_hello(
+    env: JNIEnv,
+    _: JClass,
+    input: JString, // name: String
+) -> jstring {
+    let input: String = env
+        .get_string(input)
+        .expect("Couldn't get Java string for arg 'name'!")
+        .into();
+    let output = env
+        .new_string(format!("Hello from Rust: {}", input))
+        .expect("Couldn't create a Java string!");
+    output.into_inner()
+}
