@@ -31,7 +31,7 @@ ios.build:
 
 # DEPS
 deps: installs
-	@rustc --version | grep -E 'nightly.*2019-12-14' $s || rustup override set nightly-2019-12-14
+	@rustc --version | grep -E 'nightly.*2020-05-07' $s || rustup override set nightly-2020-05-07
 	@cargo ndk --version | grep 0.4.1 $s || cargo install cargo-ndk --version 0.4.1
 	@cargo-lipo --version $s || cargo install cargo-lipo
 	@cbindgen --version $s || cargo install cbindgen

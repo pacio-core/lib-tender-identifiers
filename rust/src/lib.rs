@@ -5,7 +5,7 @@ use blake2::{Blake2b, Digest};
 use ed25519_dalek::{self as ed, SecretKey};
 
 pub use ed::{PublicKey, Signature};
-mod bindings;
+// mod bindings;
 
 #[derive(Debug)]
 pub struct KeyPair(ed::Keypair);
@@ -48,14 +48,14 @@ impl KeyPair {
 
 pub struct SeedPhrase(String);
 impl SeedPhrase {
-    pub fn from_str(s: &str) -> Self {
-        return Self(s.to_owned());
-    }
     pub fn new_random() -> Self {
         let mnemonic = Mnemonic::new(MnemonicType::Words12, Language::English);
         Self(mnemonic.phrase().to_owned())
     }
-    pub fn to_string(&self) -> String {
+    pub fn from_str(s: &str) -> Self {
+        return Self(s.to_owned());
+    }
+    pub fn to_str(&self) -> String {
         self.0.to_owned()
     }
     pub fn into_seed(&self) -> [u8; 32] {

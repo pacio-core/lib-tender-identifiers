@@ -1,4 +1,7 @@
 [workspace]
 members = [
     "rust"
+    # "rust/bindings/android",
+    # "rust/bindings/ios",
+    # "rust/bindings/wasm"
 ]
