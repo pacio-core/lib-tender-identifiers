@@ -3,10 +3,11 @@ name = "ed25519xp"
 version = "0.1.0"
 authors = ["Nicolas Marshall <marshall.nicolas@gmail.com>"]
 edition = "2018"
+publish = true
 
 [lib]
 name = "ed25519xp"
-crate-type =["staticlib", "cdylib"]
+crate-type =["staticlib", "cdylib", "lib"]
 
 [dependencies]
 ed25519-dalek = { version = "1.0.0-pre.3", features = ["nightly"] }
