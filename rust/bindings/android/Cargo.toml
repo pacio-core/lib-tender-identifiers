@@ -1,5 +1,5 @@
 [package]
-name = "android"
+name = "ed25519-android"
 version = "0.1.0"
 authors = ["Nicolas Marshall <marshall.nicolas@gmail.com>"]
 edition = "2018"
