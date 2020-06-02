@@ -13,6 +13,9 @@ crate-type =["staticlib", "cdylib", "lib"]
 ed25519-dalek = { version = "1.0.0-pre.3", features = ["nightly"] }
 blake2 = "0.8"
 bip39 = "0.6.0-beta.1"
+thiserror = "1.0"
+anyhow = "1.0"
+base64 = "0.12.0"
 
 # [target.'cfg(target_arch = "wasm32")'.dependenices]
 # console_error_panic_hook = "0.1.6"
