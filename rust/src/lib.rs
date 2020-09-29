@@ -25,6 +25,12 @@ impl KeyPair {
         Ok(Self(kp))
     }
 
+    pub fn pubkey(&self) -> ed25519_dalek::PublicKey {
+        self.0.public
+    }
+    pub fn privkey(&self) -> &[u8] {
+        self.0.secret.as_ref()
+    }
     pub fn sign(&self, message: &[u8]) -> [u8; 64] {
         self.0.sign(&message).to_bytes()
     }
@@ -42,7 +48,6 @@ impl KeyPair {
         assert_eq!(bytes.len(), 64);
         Ok(Self(ed25d::Keypair::from_bytes(bytes)?))
     }
-
     pub fn to_str(&self) -> String {
         base64::encode(&self.to_bytes().to_vec())
     }
