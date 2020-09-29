@@ -1,4 +1,5 @@
-.DEFAULT_GOAL=a.build
+.PHONY: all $(MAKECMDGOALS)
+.DEFAULT_GOAL=test
 test: deps
 	cargo test -- --nocapture
 	node node_modules/.bin/jest
@@ -31,16 +32,17 @@ ios.build:
 
 # DEPS
 deps: installs
-	@rustc --version | grep -E 'nightly.*2020-05-07' $s || rustup override set nightly-2020-05-07
+	@rustc --version | grep -E 'nightly.*2020-09-25' $s || rustup override set $v
 	@cargo ndk --version | grep 0.4.1 $s || cargo install cargo-ndk --version 0.4.1
 	@cargo-lipo --version $s || cargo install cargo-lipo
 	@cbindgen --version $s || cargo install cbindgen
 	-@rustup target add wasm32-unknown-unknown aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android aarch64-apple-ios armv7-apple-ios armv7s-apple-ios x86_64-apple-ios i386 $s
-	@test -d node_modules || npm install
+	# @test -d node_modules || npm install
 installs: 		# install manually: build-essential, pkg-config
 	@rustup --version $s || curl https://sh.rustup.rs -sSf | sh -s -- -y
 	@xcode-select --install $s || true
 s = &>/dev/null
+v = nightly-2020-09-26
 
-rm.cache:
+clean:
 	rm -rf package-lock.json node_modules/ target/ rust/target/
