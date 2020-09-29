@@ -1,12 +1,12 @@
 use super::{KeyPair, Signature, Verifier};
-use utils::bErr;
+use anyhow::Error as AnyErr;
 
 #[test]
-fn test_generates_keypair() {
+fn test_generates_keypair() -> Result<(), AnyErr> {
     let phrase = String::from(
         "famous concert update chimney vicious repeat camp awful equal cash leisure stable",
     );
-    let kp = KeyPair::from_phrase(&phrase);
+    let kp = KeyPair::from_phrase(&phrase)?;
 
     assert_eq!(
         kp.0.public.to_bytes(),
@@ -33,10 +33,11 @@ fn test_generates_keypair() {
     {
         assert_eq!(*byte, kp.to_bytes()[k])
     }
+    Ok(())
 }
 #[test]
-fn test_signs_and_verifies() {
-    let kp = utils::new_keypair();
+fn test_signs_and_verifies() -> Result<(), AnyErr> {
+    let kp = utils::new_keypair()?;
     let msg: &[u8] = b"A short msg";
     let sig_bytes = kp.sign(msg);
     assert!(kp.verify(msg, &sig_bytes));
@@ -55,11 +56,12 @@ fn test_signs_and_verifies() {
     let pubKey = kp.0.public;
     let sig = Signature::new(sig_bytes);
     assert!(pubKey.verify(msg, &sig).is_ok());
+    Ok(())
 }
 
 #[test]
-fn test_ser_deser() -> Result<(), bErr> {
-    let kp = utils::new_keypair();
+fn test_ser_deser() -> Result<(), AnyErr> {
+    let kp = utils::new_keypair()?;
     let ser = kp.to_bytes();
     assert_eq!(ser.len(), 64);
 
@@ -73,14 +75,12 @@ fn test_ser_deser() -> Result<(), bErr> {
 //
 
 mod utils {
-    use super::KeyPair;
+    use super::*;
 
-    pub type bErr = Box<dyn std::error::Error>;
-
-    pub fn new_keypair() -> KeyPair {
+    pub fn new_keypair() -> Result<KeyPair, AnyErr> {
         let phrase = String::from(
             "famous concert update chimney vicious repeat camp awful equal cash leisure stable",
         );
-        KeyPair::from_phrase(&phrase)
+        Ok(KeyPair::from_phrase(&phrase)?)
     }
 }

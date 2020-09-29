@@ -1,4 +1,4 @@
-# pledges-sig-lib
+# tender-identifiers
 
 Curve25519 signatures library for Rust / Typescript / Android / iOS.
 
