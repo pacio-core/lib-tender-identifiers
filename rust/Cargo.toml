@@ -1,12 +1,12 @@
 [package]
-name = "ed25519xp"
+name = "tender_identifiers"
 version = "0.1.0"
 authors = ["Nicolas Marshall <marshall.nicolas@gmail.com>"]
 edition = "2018"
 publish = true
 
 [lib]
-name = "ed25519xp"
+name = "tender_identifiers"
 crate-type =["staticlib", "cdylib", "lib"]
 
 [dependencies]

@@ -37,7 +37,7 @@ deps: installs
 	@cargo-lipo --version $s || cargo install cargo-lipo
 	@cbindgen --version $s || cargo install cbindgen
 	-@rustup target add wasm32-unknown-unknown aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android aarch64-apple-ios armv7-apple-ios armv7s-apple-ios x86_64-apple-ios i386 $s
-	@test -d node_modules || npm install
+	# @test -d node_modules || npm install
 installs: 		# install manually: build-essential, pkg-config
 	@rustup --version $s || curl https://sh.rustup.rs -sSf | sh -s -- -y
 	@xcode-select --install $s || true
