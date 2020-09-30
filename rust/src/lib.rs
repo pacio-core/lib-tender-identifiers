@@ -8,6 +8,7 @@ use ed25519_dalek::{self as ed25d, SecretKey, Signer, Verifier};
 mod _tests;
 mod tofromB64;
 pub use ed25d::{PublicKey, Signature};
+pub use tofromB64::B64;
 
 #[derive(Debug)]
 pub struct KeyPair(ed25d::Keypair);
@@ -31,6 +32,9 @@ impl KeyPair {
     pub fn privkey(&self) -> &[u8] {
         self.0.secret.as_ref()
     }
+    // pub fn privKey_str(&self) -> String {
+    //     self.0.secret
+    // }
     pub fn sign(&self, message: &[u8]) -> [u8; 64] {
         self.0.sign(&message).to_bytes()
     }
@@ -45,7 +49,12 @@ impl KeyPair {
         self.0.to_bytes()
     }
     pub fn from_bytes(bytes: &[u8]) -> Result<Self, KpErr> {
-        assert_eq!(bytes.len(), 64);
+        if bytes.len() != 64 {
+            return Err(KpErr::BytesLengthErr {
+                expected: 64,
+                got: bytes.len(),
+            });
+        }
         Ok(Self(ed25d::Keypair::from_bytes(bytes)?))
     }
     pub fn to_str(&self) -> String {
@@ -59,6 +68,8 @@ impl KeyPair {
 
 #[derive(thiserror::Error, Debug)]
 pub enum KpErr {
+    #[error("unexpected bytes length:")]
+    BytesLengthErr { expected: usize, got: usize },
     #[error(transparent)]
     SignatureErr(#[from] ed25d::SignatureError),
     #[error(transparent)]

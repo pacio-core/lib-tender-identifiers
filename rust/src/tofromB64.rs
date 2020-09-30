@@ -2,14 +2,14 @@ use ed25519_dalek as ed25d;
 //
 use crate::KpErr;
 
-pub trait ToFromB64
+pub trait B64
 where
     Self: Sized,
 {
     fn to_str(&self) -> String;
     fn from_str(s: &str) -> Result<Self, KpErr>;
 }
-impl ToFromB64 for ed25d::SecretKey {
+impl B64 for ed25d::SecretKey {
     fn to_str(&self) -> String {
         base64::encode(&self.to_bytes().to_vec())
     }
