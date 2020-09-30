@@ -26,15 +26,12 @@ impl KeyPair {
         Ok(Self(kp))
     }
 
-    pub fn pubkey(&self) -> ed25519_dalek::PublicKey {
-        self.0.public
+    pub fn pubkey(&self) -> &ed25d::PublicKey {
+        &self.0.public
     }
-    pub fn privkey(&self) -> &[u8] {
-        self.0.secret.as_ref()
+    pub fn privkey(&self) -> &ed25d::SecretKey {
+        &self.0.secret
     }
-    // pub fn privKey_str(&self) -> String {
-    //     self.0.secret
-    // }
     pub fn sign(&self, message: &[u8]) -> [u8; 64] {
         self.0.sign(&message).to_bytes()
     }
