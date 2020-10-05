@@ -63,7 +63,7 @@ impl KeyPair {
     }
 }
 
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, Clone)]
 pub enum KpErr {
     #[error("unexpected bytes length: expected: {expected}, got: {got}")]
     BytesLengthErr { expected: usize, got: usize },
@@ -73,6 +73,7 @@ pub enum KpErr {
     Base64DecodeErr(#[from] base64::DecodeError),
 }
 impl From<ed25d::SignatureError> for KpErr {
+    // for Clone (SignatureError doesn't implement Clone)
     fn from(e: ed25d::SignatureError) -> Self {
         Self::SignatureErr(std::error::Error::to_string(&e))
     }
