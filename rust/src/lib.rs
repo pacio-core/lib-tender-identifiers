@@ -65,12 +65,17 @@ impl KeyPair {
 
 #[derive(thiserror::Error, Debug)]
 pub enum KpErr {
-    #[error("unexpected bytes length:")]
+    #[error("unexpected bytes length: expected: {expected}, got: {got}")]
     BytesLengthErr { expected: usize, got: usize },
-    #[error(transparent)]
-    SignatureErr(#[from] ed25d::SignatureError),
+    #[error("signature err: {0}")]
+    SignatureErr(String),
     #[error(transparent)]
     Base64DecodeErr(#[from] base64::DecodeError),
+}
+impl From<ed25d::SignatureError> for KpErr {
+    fn from(e: ed25d::SignatureError) -> Self {
+        Self::SignatureErr(std::error::Error::to_string(&e))
+    }
 }
 
 pub struct SeedPhrase(String);
