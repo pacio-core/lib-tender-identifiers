@@ -18,6 +18,15 @@ impl B64 for ed25d::SecretKey {
         Ok(Self::from_bytes(&bytes)?)
     }
 }
+impl B64 for ed25d::PublicKey {
+    fn to_str(&self) -> String {
+        base64::encode(&self.to_bytes().to_vec())
+    }
+    fn from_str(s: &str) -> Result<Self, KpErr> {
+        let bytes = base64::decode(&s)?;
+        Ok(Self::from_bytes(&bytes)?)
+    }
+}
 
 // pub trait ToFromBytes<'a> {
 //     fn to_bytes(&self) -> &'a [u8];
